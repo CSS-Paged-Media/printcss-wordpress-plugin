@@ -8,8 +8,6 @@
  * Requires PHP:      7.2
  * Author:            Andreas Zettl
  * Author URI:        https://azettl.net/
- * License:           GPL v2 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 /**
@@ -314,7 +312,6 @@
             $redirect_to = add_query_arg( 'magazine_pdf_content_error', $oError->message, $redirect_to);
         }
 
-        $redirect_to = add_query_arg( 'magazine_pdf_content', 1, $redirect_to);
         return $redirect_to;
     }
 
