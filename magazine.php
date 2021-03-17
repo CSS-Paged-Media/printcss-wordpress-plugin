@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Magazine
- * Plugin URI:        https://wordpress.org/plugins/magazine/
+ * Plugin URI:        https://gumroad.com/l/wp-magazine-printcss-cloud
  * Description:       Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
  * Version:           0.0.3
  * Requires at least: 5.7
