@@ -197,14 +197,16 @@
             return $redirect_to;
         }
 
-        $magazine_rendering_tool = get_option('magazine_rendering_tool');
-        $magazine_rapidapi_key   = get_option('magazine_rapidapi_key');
-        $magazine_print_css      = get_option('magazine_print_css');
-        $magazine_print_html     = get_option('magazine_print_html');
-        $magazine_print_js       = get_option('magazine_print_js');
-        $magazine_print_html_tmp = '';
+        $magazine_rendering_tool    = get_option('magazine_rendering_tool');
+        $magazine_rapidapi_key      = get_option('magazine_rapidapi_key');
+        $magazine_print_css         = get_option('magazine_print_css');
+        $magazine_print_html        = get_option('magazine_print_html');
+        $magazine_print_js          = get_option('magazine_print_js');
+        $magazine_print_html_final  = '';
+
 
         foreach ( $post_ids as $post_id ) {
+            $magazine_print_html_tmp  = '';
             $magazine_print_html_tmp .= str_replace(
                 [
                     '{{title}}',
@@ -238,6 +240,34 @@
                 ],
                 $magazine_print_html
             );
+
+            /* Add ACF Support Start */
+                if(function_exists('get_field_objects')){
+                    $fields = get_field_objects($post_id);
+
+                    foreach($fields as $fieldname => $fieldArray){
+                        $magazine_print_html_tmp = str_replace(
+                            '{{' . $fieldname . '}}',
+                            (
+                                ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
+                                ?
+                                $fieldArray['default_value']
+                                :
+                                (
+                                    (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                    ?
+                                    $fieldArray['value']['url']
+                                    :
+                                    $fieldArray['value']
+                                )
+                            ),
+                            $magazine_print_html_tmp
+                        );
+                    }
+                }
+            /* ADD ACF Support END */
+
+            $magazine_print_html_final .= $magazine_print_html_tmp;
         }
 
         $curl = curl_init();
