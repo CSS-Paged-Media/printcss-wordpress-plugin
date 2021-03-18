@@ -74,6 +74,9 @@
                             <i>{{day}}</i>,
                             <i>{{hour}}</i>,
                             <i>{{minute}}</i>.
+                            <br />
+                            <br />
+                            ACF is also supported just add {{YOUR_FIELD_NAME}} (<b>Important:</b> Use the name not the label!) and if your fields value appears in the PDF.
                         </label>
                         </fieldset>
                     </td>
