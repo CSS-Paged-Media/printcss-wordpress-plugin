@@ -37,15 +37,18 @@
             $aThemes        = magazine_template::_getTemplateNames();
             $sThemeOptions  = '';
 
-            foreach($aThemes as $sThemeName){
-                $sThemeOptions .= '<option value="' . $sThemeName . '">' . $sThemeName . '</option>';
-            }
-
             if(!isset($_SESSION['magazine_theme_to_edit'])){
                 $_SESSION['magazine_theme_to_edit'] = reset($aThemes);
             }
 
             $sSelectedTheme                = $_SESSION['magazine_theme_to_edit'];
+
+            foreach($aThemes as $sThemeName){
+                $sThemeOptions .= '<option value="' 
+                    . $sThemeName . '"' 
+                    . ($sThemeName == $sSelectedTheme ? 'selected' : '') 
+                    . '>' . $sThemeName . '</option>';
+            }
 
             $magazine_print_html_prefix    = magazine_template::_getHTML($sSelectedTheme, 'prefix');
             $magazine_print_html_post      = magazine_template::_getHTML($sSelectedTheme, 'post');
@@ -70,7 +73,7 @@
                             <td>
                                 <fieldset>
                                     <legend class="hidden">Select Theme to Edit</legend>
-                                    <select name="magazine_theme_selection" style="width:100%;display:block;">
+                                    <select onchange="this.form.submit()" name="magazine_theme_selection" style="width:100%;display:block;">
                                         ' . $sThemeOptions . '    
                                     </select>
                                     <label for="magazine_theme_selection">
@@ -80,9 +83,6 @@
                             </td>
                         </tr>
                     </table>
-                    <p class="submit">
-                        <input type="submit" name="Submit" class="button-primary" value="Change Theme to Edit" />
-                    </p>
                     <input name="action" value="magazine_select_theme" type="hidden" />
                 </form>
                 <div id="icon-options-general" class="icon32"><br /></div>
