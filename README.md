@@ -21,7 +21,7 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 - 0.0.5 
     - Add Widget to show render link on the website
     - Placeholder replacement in the CSS and JS files
-    - Added ACF_ as prefix for the ACF Placeholders
+    - Added ACF_ as a prefix for the ACF Placeholders
     - Added Placeholder for the page/post slug
 - 0.0.4 
     - Added Feature Image and ACF Field Placeholders
