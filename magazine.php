@@ -64,7 +64,7 @@
                         <label for="magazine_print_html">
                             <b>The HTML gets rendered once per selected post/page, so if you do a bulk operation on five posts, the HTML code will be rendered foreach post.</b>
                             <br/>
-                            The placeholder <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page title, feature image and content. Please be aware that images need to be available via a public URL for the API to use them. Additionally you can use the placeholders <i>{{author}}</i>,
+                            The placeholder <i>{{slug}}</i>, <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page title, feature image and content. Please be aware that images need to be available via a public URL for the API to use them. Additionally you can use the placeholders <i>{{author}}</i>,
                             <i>{{date}}</i>,
                             <i>{{date_gmt}}</i>,
                             <i>{{excerpt}}</i>,
@@ -215,6 +215,7 @@
                     '{{title}}',
                     '{{content}}',
                     '{{feature_image}}',
+                    '{{slug}}',
                     '{{author}}',
                     '{{date}}',
                     '{{date_gmt}}',
@@ -230,6 +231,7 @@
                     get_the_title($post_id),
                     apply_filters('the_content', get_post_field('post_content', $post_id)),
                     (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
+                    get_post_field('post_name', $post_id),
                     get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
                     get_post_field('post_date', $post_id),
                     get_post_field('post_date_gmt', $post_id),
