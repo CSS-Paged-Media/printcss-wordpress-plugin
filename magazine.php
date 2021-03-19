@@ -200,57 +200,9 @@
             return $redirect_to;
         }
 
-        $magazine_rendering_tool    = get_option('magazine_rendering_tool');
-        $magazine_rapidapi_key      = get_option('magazine_rapidapi_key');
-        $magazine_print_css         = get_option('magazine_print_css');
-        $magazine_print_html        = get_option('magazine_print_html');
-        $magazine_print_js          = get_option('magazine_print_js');
-        
-        $sHtmlToRender = _replacePlaceholders($post_ids, $magazine_print_html);
-        $sCssToRender  = _replacePlaceholders($post_ids, $magazine_print_css);
-        $sJsToRender   = _replacePlaceholders($post_ids, $magazine_print_js);
-
-        $curl = curl_init();
-        if(trim($magazine_print_js) === ''){
-            $oSend = [
-                "html" => $sHtmlToRender,
-                "css" => $sCssToRender,
-                "options" => [
-                    "renderer" => $magazine_rendering_tool
-                ]
-            ];
-        }else{
-            $oSend = [
-                "html" => $sHtmlToRender,
-                "css" => $sCssToRender,
-                "javascript" => $sJsToRender,
-                "options" => [
-                    "renderer" => $magazine_rendering_tool
-                ]
-            ];
-        }
-
-        curl_setopt_array(
-            $curl, 
-            array(
-                CURLOPT_URL => 'https://printcss-cloud.p.rapidapi.com/render',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($oSend),
-                CURLOPT_HTTPHEADER => array(
-                    'x-rapidapi-host: printcss-cloud.p.rapidapi.com',
-                    'x-rapidapi-key: ' . $magazine_rapidapi_key
-                ),
-            )
-        );
-        $pdfContent = curl_exec($curl);
-        $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
+        $aRenderResult = _renderPDF($post_ids);
+        $http_status   = $aRenderResult['status_code'];
+        $pdfContent    = $aRenderResult['content'];
 
         if($http_status == 200){
             $upload_dir = wp_upload_dir();
@@ -308,91 +260,211 @@
 ###############################################################################################################
  
 /**
- * Frontend Render PDF Start
+ * Widget PDF Start
  */
+    class magazine_render_PDF_Widget extends WP_Widget {
 
+        // Set up the widget name and description.
+        public function __construct() {
+            $widget_options = array(
+                'classname' => 'magazine_render_PDF_Widget', 
+                'description' => 'Displays a link to render a PDF from the current Page or Post.'
+            );
+
+            parent::__construct(
+                'magazine_render_PDF_Widget', 
+                'Magazine Render PDF', 
+                $widget_options
+            );
+        }
+    
+        // Create the widget output.
+        public function widget($args, $instance) {
+            global $wp;
+
+            $sCurrentURL = home_url($wp->request);
+            echo '<a href="' . $sCurrentURL . '?renderPDF=true">Render PDF</a>';
+        }
+    }
+    
+    // Register the widget.
+    add_action('widgets_init', function(){
+        register_widget('magazine_render_PDF_Widget');
+    });
+
+    // Render Frontend PDF
+    add_action('wp', function(){
+        if ($_GET['renderPDF'] == "true") {
+            global $post;
+
+            if($post->ID > 0 && $_GET['renderPDF'] == 'true'){
+                $aRenderResult = _renderPDF([$post->ID]);
+                $http_status   = $aRenderResult['status_code'];
+                $pdfContent    = $aRenderResult['content'];
+
+                if($http_status == 200){
+                    header('Content-Type: application/pdf');
+                    echo $pdfContent;
+                }else{
+                    echo $pdfContent;
+                }
+                exit;
+            }else{
+                echo 'No valid post ID for PDF generation.';
+            }
+            exit; 
+        }   
+    });
 /**
- * Frontend Render PDF END
+ * Widget PDF END
  */
 
 ###############################################################################################################
- 
+
+/**
+ * Render Method Start
+ */
+
+    function _renderPDF($aPostIds){
+        $magazine_rendering_tool    = get_option('magazine_rendering_tool');
+        $magazine_rapidapi_key      = get_option('magazine_rapidapi_key');
+        $magazine_print_css         = get_option('magazine_print_css');
+        $magazine_print_html        = get_option('magazine_print_html');
+        $magazine_print_js          = get_option('magazine_print_js');
+        
+        $sHtmlToRender = _replacePlaceholders($aPostIds, $magazine_print_html);
+        $sCssToRender  = _replacePlaceholders($aPostIds, $magazine_print_css);
+        $sJsToRender   = _replacePlaceholders($aPostIds, $magazine_print_js);
+
+        $curl = curl_init();
+        if(trim($magazine_print_js) === ''){
+            $oSend = [
+                "html" => $sHtmlToRender,
+                "css" => $sCssToRender,
+                "options" => [
+                    "renderer" => $magazine_rendering_tool
+                ]
+            ];
+        }else{
+            $oSend = [
+                "html" => $sHtmlToRender,
+                "css" => $sCssToRender,
+                "javascript" => $sJsToRender,
+                "options" => [
+                    "renderer" => $magazine_rendering_tool
+                ]
+            ];
+        }
+
+        curl_setopt_array(
+            $curl, 
+            array(
+                CURLOPT_URL => 'https://printcss-cloud.p.rapidapi.com/render',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($oSend),
+                CURLOPT_HTTPHEADER => array(
+                    'x-rapidapi-host: printcss-cloud.p.rapidapi.com',
+                    'x-rapidapi-key: ' . $magazine_rapidapi_key
+                ),
+            )
+        );
+        $pdfContent = curl_exec($curl);
+        $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        return [
+            'status_code' => $http_status,
+            'content'     => $pdfContent
+        ];
+    }
+
+/**
+ * Render Method END
+ */
+
+
 /**
  * Placeholder Replacement Start
  */
 
-function _replacePlaceholders($aPostIds, $sContent){
-    $sContentFinal = '';
+    function _replacePlaceholders($aPostIds, $sContent){
+        $sContentFinal = '';
 
-    foreach ($aPostIds as $post_id) {
-        $sContentTemp = '';
-        $sContentTemp .= str_replace(
-            [
-                '{{title}}',
-                '{{content}}',
-                '{{feature_image}}',
-                '{{slug}}',
-                '{{author}}',
-                '{{date}}',
-                '{{date_gmt}}',
-                '{{excerpt}}',
-                '{{status}}',
-                '{{year}}',
-                '{{month}}',
-                '{{day}}',
-                '{{hour}}',
-                '{{minute}}'
-            ],
-            [
-                get_the_title($post_id),
-                apply_filters('the_content', get_post_field('post_content', $post_id)),
-                (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
-                get_post_field('post_name', $post_id),
-                get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
-                get_post_field('post_date', $post_id),
-                get_post_field('post_date_gmt', $post_id),
-                get_post_field('post_excerpt', $post_id),
-                get_post_field('post_status', $post_id),
-                date('Y', strtotime(get_post_field('post_date', $post_id))),
-                date('m', strtotime(get_post_field('post_date', $post_id))),
-                date('d', strtotime(get_post_field('post_date', $post_id))),
-                date('H', strtotime(get_post_field('post_date', $post_id))),
-                date('i', strtotime(get_post_field('post_date', $post_id))),
-            ],
-            $sContent
-        );
+        foreach ($aPostIds as $post_id) {
+            $sContentTemp = '';
+            $sContentTemp .= str_replace(
+                [
+                    '{{title}}',
+                    '{{content}}',
+                    '{{feature_image}}',
+                    '{{slug}}',
+                    '{{author}}',
+                    '{{date}}',
+                    '{{date_gmt}}',
+                    '{{excerpt}}',
+                    '{{status}}',
+                    '{{year}}',
+                    '{{month}}',
+                    '{{day}}',
+                    '{{hour}}',
+                    '{{minute}}'
+                ],
+                [
+                    get_the_title($post_id),
+                    apply_filters('the_content', get_post_field('post_content', $post_id)),
+                    (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
+                    get_post_field('post_name', $post_id),
+                    get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
+                    get_post_field('post_date', $post_id),
+                    get_post_field('post_date_gmt', $post_id),
+                    get_post_field('post_excerpt', $post_id),
+                    get_post_field('post_status', $post_id),
+                    date('Y', strtotime(get_post_field('post_date', $post_id))),
+                    date('m', strtotime(get_post_field('post_date', $post_id))),
+                    date('d', strtotime(get_post_field('post_date', $post_id))),
+                    date('H', strtotime(get_post_field('post_date', $post_id))),
+                    date('i', strtotime(get_post_field('post_date', $post_id))),
+                ],
+                $sContent
+            );
 
-        /* Add ACF Support Start */
-            if(function_exists('get_field_objects')){
-                $fields = get_field_objects($post_id);
+            /* Add ACF Support Start */
+                if(function_exists('get_field_objects')){
+                    $fields = get_field_objects($post_id);
 
-                foreach($fields as $fieldname => $fieldArray){
-                    $sContentTemp = str_replace(
-                        '{{ACF_' . $fieldname . '}}',
-                        (
-                            ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
-                            ?
-                            $fieldArray['default_value']
-                            :
+                    foreach($fields as $fieldname => $fieldArray){
+                        $sContentTemp = str_replace(
+                            '{{ACF_' . $fieldname . '}}',
                             (
-                                (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
                                 ?
-                                $fieldArray['value']['url']
+                                $fieldArray['default_value']
                                 :
-                                $fieldArray['value']
-                            )
-                        ),
-                        $sContentTemp
-                    );
+                                (
+                                    (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                    ?
+                                    $fieldArray['value']['url']
+                                    :
+                                    $fieldArray['value']
+                                )
+                            ),
+                            $sContentTemp
+                        );
+                    }
                 }
-            }
-        /* ADD ACF Support END */
+            /* ADD ACF Support END */
 
-        $sContentFinal .= $sContentTemp;
+            $sContentFinal .= $sContentTemp;
+        }
+
+        return $sContentFinal;
     }
-
-    return $sContentFinal;
-}
 
 /**
  * Placeholder Replacement END
