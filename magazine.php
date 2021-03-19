@@ -250,7 +250,7 @@
 
                     foreach($fields as $fieldname => $fieldArray){
                         $magazine_print_html_tmp = str_replace(
-                            '{{' . $fieldname . '}}',
+                            '{{ACF_' . $fieldname . '}}',
                             (
                                 ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
                                 ?
