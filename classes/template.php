@@ -22,6 +22,27 @@
 
             return $sHtml;
         }
+
+        /**
+         * This method is used to store updated HTML content to the file.
+         * 
+         * @param string $sTheme        The name of the Magazine Template
+         * @param string $sType         The name of the file without file extension
+         * @param string $sNewContent   The new file content
+         * 
+         * @return void
+         */
+        public static function _setHTML(string $sTheme, string $sType, string $sNewContent) : void {
+            $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/';
+
+            if(is_dir($sMagazineThemePath)){
+                file_put_contents($sMagazineThemePath . $sType . '.html', $sNewContent);
+            }else{
+                if(mkdir($sMagazineThemePath)){
+                    file_put_contents($sMagazineThemePath . $sType . '.html', $sNewContent);
+                }
+            }
+        }
         
         /**
          * This method is used to get the content of a CSS template file.
@@ -43,6 +64,27 @@
 
             return $sCSS;
         }
+
+        /**
+         * This method is used to store updated CSS content to the file.
+         * 
+         * @param string $sTheme        The name of the Magazine Template
+         * @param string $sType         The name of the file without file extension
+         * @param string $sNewContent   The new file content
+         * 
+         * @return void
+         */
+        public static function _setCSS(string $sTheme, string $sType, string $sNewContent) : void {
+            $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/css/';
+
+            if(is_dir($sMagazineThemePath)){
+                file_put_contents($sMagazineThemePath . $sType . '.css', $sNewContent);
+            }else{
+                if(mkdir($sMagazineThemePath)){
+                    file_put_contents($sMagazineThemePath . $sType . '.css', $sNewContent);
+                }
+            }
+        }
         
         /**
          * This method is used to get the content of a JavaScript template file.
@@ -63,6 +105,27 @@
             }
 
             return $sJS;
+        }
+
+        /**
+         * This method is used to store updated JavaScript content to the file.
+         * 
+         * @param string $sTheme        The name of the Magazine Template
+         * @param string $sType         The name of the file without file extension
+         * @param string $sNewContent   The new file content
+         * 
+         * @return void
+         */
+        public static function _setJS(string $sTheme, string $sType, string $sNewContent) : void {
+            $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/js/';
+
+            if(is_dir($sMagazineThemePath)){
+                file_put_contents($sMagazineThemePath . $sType . '.js', $sNewContent);
+            }else{
+                if(mkdir($sMagazineThemePath)){
+                    file_put_contents($sMagazineThemePath . $sType . '.js', $sNewContent);
+                }
+            }
         }
 
         /**
@@ -150,5 +213,61 @@
             }
     
             return $sContentFinal;
+        }
+
+        /**
+         * This Method returns all folders (themes) within the magazine_themes folder as array.
+         * 
+         * @return array        Array containing the theme names.
+         */
+        public static function _getTemplateNames() : array {
+            $aDirectories = [];
+            foreach(glob(WP_CONTENT_DIR . '/magazine_themes/*', GLOB_ONLYDIR) as $dir) {
+                $aDirectories[] = basename($dir);
+            }
+
+            return $aDirectories;
+        }
+
+        /**
+         * This method is used to duplicate a theme, the duplication first checks if the new folder already
+         * exists, if so then nothing is done.
+         * 
+         * @param string $sOriginalTheme    The name of the theme which should get duplicated
+         * @param string $sDuplicateName    The name of the new duplicate
+         * 
+         * @return void
+         */
+
+        public static function _duplicateTemplate(string $sOriginalTheme, string $sDuplicateName) : void {
+            $sMagazineOriginalThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sOriginalTheme . '/';
+            $sMagazineDuplicateThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sDuplicateName . '/';
+            
+            if(!is_dir($sMagazineDuplicateThemePath)){
+                self::_recursiveCopy($sMagazineOriginalThemePath, $sMagazineDuplicateThemePath);
+            }
+        }
+
+        /**
+         * This method is used to recursively copy folders and files.
+         * 
+         * @param string $sSourceFolder     The path of the source folder
+         * @param string $sTargetFolder     The path of the new target folder
+         * 
+         * @return void
+         */
+        public static function _recursiveCopy(string $sSourceFolder, string $sTargetFolder) : void {
+            if (is_dir($sSourceFolder)) {
+                mkdir($sTargetFolder);
+                $files = scandir($sSourceFolder);
+                
+                foreach ($files as $file){
+                    if ($file != "." && $file != ".."){
+                        self::_recursiveCopy("$sSourceFolder/$file", "$sTargetFolder/$file");
+                    }
+                }
+            }elseif(file_exists($sSourceFolder)) {
+                copy($sSourceFolder, $sTargetFolder);
+            }
         }
     }
