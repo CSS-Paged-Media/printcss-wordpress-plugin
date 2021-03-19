@@ -35,6 +35,12 @@
     add_action('admin_menu', function(){
         add_theme_page('Magazine', 'Magazine', 9, 'magazine_theme_page', function(){
             $aThemes        = magazine_template::_getTemplateNames();
+            
+            if(is_array($aThemes) && count($aThemes) == 0){ // Create Demo Template if there is none
+                magazine_template::_createDemoTemplate();
+                $aThemes = magazine_template::_getTemplateNames();
+            }
+
             $sThemeOptions  = '';
 
             if(!isset($_SESSION['magazine_theme_to_edit'])){
