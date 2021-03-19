@@ -205,90 +205,25 @@
         $magazine_print_css         = get_option('magazine_print_css');
         $magazine_print_html        = get_option('magazine_print_html');
         $magazine_print_js          = get_option('magazine_print_js');
-        $magazine_print_html_final  = '';
-
-
-        foreach ( $post_ids as $post_id ) {
-            $magazine_print_html_tmp  = '';
-            $magazine_print_html_tmp .= str_replace(
-                [
-                    '{{title}}',
-                    '{{content}}',
-                    '{{feature_image}}',
-                    '{{slug}}',
-                    '{{author}}',
-                    '{{date}}',
-                    '{{date_gmt}}',
-                    '{{excerpt}}',
-                    '{{status}}',
-                    '{{year}}',
-                    '{{month}}',
-                    '{{day}}',
-                    '{{hour}}',
-                    '{{minute}}'
-                ],
-                [
-                    get_the_title($post_id),
-                    apply_filters('the_content', get_post_field('post_content', $post_id)),
-                    (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
-                    get_post_field('post_name', $post_id),
-                    get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
-                    get_post_field('post_date', $post_id),
-                    get_post_field('post_date_gmt', $post_id),
-                    get_post_field('post_excerpt', $post_id),
-                    get_post_field('post_status', $post_id),
-                    date('Y', strtotime(get_post_field('post_date', $post_id))),
-                    date('m', strtotime(get_post_field('post_date', $post_id))),
-                    date('d', strtotime(get_post_field('post_date', $post_id))),
-                    date('H', strtotime(get_post_field('post_date', $post_id))),
-                    date('i', strtotime(get_post_field('post_date', $post_id))),
-                ],
-                $magazine_print_html
-            );
-
-            /* Add ACF Support Start */
-                if(function_exists('get_field_objects')){
-                    $fields = get_field_objects($post_id);
-
-                    foreach($fields as $fieldname => $fieldArray){
-                        $magazine_print_html_tmp = str_replace(
-                            '{{ACF_' . $fieldname . '}}',
-                            (
-                                ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
-                                ?
-                                $fieldArray['default_value']
-                                :
-                                (
-                                    (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
-                                    ?
-                                    $fieldArray['value']['url']
-                                    :
-                                    $fieldArray['value']
-                                )
-                            ),
-                            $magazine_print_html_tmp
-                        );
-                    }
-                }
-            /* ADD ACF Support END */
-
-            $magazine_print_html_final .= $magazine_print_html_tmp;
-        }
+        
+        $sHtmlToRender = _replacePlaceholders($post_ids, $magazine_print_html);
+        $sCssToRender  = _replacePlaceholders($post_ids, $magazine_print_css);
+        $sJsToRender   = _replacePlaceholders($post_ids, $magazine_print_js);
 
         $curl = curl_init();
         if(trim($magazine_print_js) === ''){
             $oSend = [
-                "html" => $magazine_print_html_tmp,
-                "css" => $magazine_print_css,
+                "html" => $sHtmlToRender,
+                "css" => $sCssToRender,
                 "options" => [
                     "renderer" => $magazine_rendering_tool
                 ]
             ];
         }else{
             $oSend = [
-                "html" => $magazine_print_html_tmp,
-                "css" => $magazine_print_css,
-                "javascript" => $magazine_print_js,
+                "html" => $sHtmlToRender,
+                "css" => $sCssToRender,
+                "javascript" => $sJsToRender,
                 "options" => [
                     "renderer" => $magazine_rendering_tool
                 ]
@@ -378,4 +313,87 @@
 
 /**
  * Frontend Render PDF END
+ */
+
+###############################################################################################################
+ 
+/**
+ * Placeholder Replacement Start
+ */
+
+function _replacePlaceholders($aPostIds, $sContent){
+    $sContentFinal = '';
+
+    foreach ($aPostIds as $post_id) {
+        $sContentTemp = '';
+        $sContentTemp .= str_replace(
+            [
+                '{{title}}',
+                '{{content}}',
+                '{{feature_image}}',
+                '{{slug}}',
+                '{{author}}',
+                '{{date}}',
+                '{{date_gmt}}',
+                '{{excerpt}}',
+                '{{status}}',
+                '{{year}}',
+                '{{month}}',
+                '{{day}}',
+                '{{hour}}',
+                '{{minute}}'
+            ],
+            [
+                get_the_title($post_id),
+                apply_filters('the_content', get_post_field('post_content', $post_id)),
+                (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
+                get_post_field('post_name', $post_id),
+                get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
+                get_post_field('post_date', $post_id),
+                get_post_field('post_date_gmt', $post_id),
+                get_post_field('post_excerpt', $post_id),
+                get_post_field('post_status', $post_id),
+                date('Y', strtotime(get_post_field('post_date', $post_id))),
+                date('m', strtotime(get_post_field('post_date', $post_id))),
+                date('d', strtotime(get_post_field('post_date', $post_id))),
+                date('H', strtotime(get_post_field('post_date', $post_id))),
+                date('i', strtotime(get_post_field('post_date', $post_id))),
+            ],
+            $sContent
+        );
+
+        /* Add ACF Support Start */
+            if(function_exists('get_field_objects')){
+                $fields = get_field_objects($post_id);
+
+                foreach($fields as $fieldname => $fieldArray){
+                    $sContentTemp = str_replace(
+                        '{{ACF_' . $fieldname . '}}',
+                        (
+                            ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
+                            ?
+                            $fieldArray['default_value']
+                            :
+                            (
+                                (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                ?
+                                $fieldArray['value']['url']
+                                :
+                                $fieldArray['value']
+                            )
+                        ),
+                        $sContentTemp
+                    );
+                }
+            }
+        /* ADD ACF Support END */
+
+        $sContentFinal .= $sContentTemp;
+    }
+
+    return $sContentFinal;
+}
+
+/**
+ * Placeholder Replacement END
  */
