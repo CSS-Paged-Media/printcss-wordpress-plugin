@@ -282,8 +282,38 @@
         public function widget($args, $instance) {
             global $wp;
 
+            $text = $instance['text'] ? esc_attr($instance['text']) : 'Render PDF';
+
             $sCurrentURL = home_url($wp->request);
-            echo '<a href="' . $sCurrentURL . '?renderPDF=true">Render PDF</a>';
+            echo '<a href="' . $sCurrentURL . '?renderPDF=true">' . $text . '</a>';
+        }
+
+        // Create widget settings.
+        public function form($instance) {
+            $text       = $instance['text'] ? esc_attr($instance['text']) : 'Render PDF';
+            $fieldname  = $this->get_field_name('text');
+
+            echo '<p>
+                    <label for="magazine_widget_option_text">Text</label> 
+                    <input 
+                        class="widefat" 
+                        id="magazine_widget_option_text" 
+                        name="' . $fieldname . '" 
+                        type="text" 
+                        value="' . $text . '" />
+                  </p>';
+        }
+
+        // Update widget settings.
+        public function update($new_instance, $old_instance) {
+            $instance = array();
+            $instance['text'] = (!empty($new_instance['text'])) 
+                ? 
+                strip_tags($new_instance['text']) 
+                : 
+                '';
+        
+            return $instance;
         }
     }
     
