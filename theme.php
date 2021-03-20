@@ -69,7 +69,7 @@
             $magazine_print_js_post        = magazine_template::_getJS($sSelectedTheme, 'post');
             $magazine_print_js_page        = magazine_template::_getJS($sSelectedTheme, 'page');
 
-            echo '<div class="wrap">
+            echo '<div class="wrap wrap-magazine">
                 <h1>Magazine Theme Editor <i>powered by <a href="https://printcss.cloud" target="_blank" rel="noopener">PrintCSS Cloud</a></i></h1>
                 <form name="magazine_theme_selection_form" method="post">
                     <table class="form-table">
@@ -104,22 +104,22 @@
                         </th>
                         <td>
                             <details>
-                                <summary>Prefix <i>prefix.html</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
+                                <summary>Prefix <i>prefix.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_prefix" />'. htmlentities($magazine_print_html_prefix) .'</textarea>
                                 <div id="magazine_print_html_prefix">'. htmlentities($magazine_print_html_prefix) .'</div>
                             </details>
                             <details>
-                                <summary>Post <i>post.html</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
+                                <summary>Post <i>post.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
                                 <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
                             </details>
                             <details>
-                                <summary>Page <i>page.html</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
+                                <summary>Page <i>page.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_page" />'. htmlentities($magazine_print_html_page) .'</textarea>
                                 <div id="magazine_print_html_page">'. htmlentities($magazine_print_html_page) .'</div>
                             </details>
                             <details>
-                                <summary>Postfix <i>postfix.html</i><span>(Comes last, <b><u>NO</u> Placeholder Support</b>)</span></summary>
+                                <summary>Postfix <i>postfix.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_postfix" />'. htmlentities($magazine_print_html_postfix) .'</textarea>
                                 <div id="magazine_print_html_postfix">'. htmlentities($magazine_print_html_postfix) .'</div>
                             </details>
@@ -129,17 +129,17 @@
                             <th scope="row">CSS</th>
                             <td>
                                 <details>
-                                    <summary>Main <i>style.css</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
+                                    <summary>Main <i>style.css</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_main" />'. $magazine_print_css_main .'</textarea>
                                     <div id="magazine_print_css_main">'. $magazine_print_css_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.css</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
+                                    <summary>Post <i>post.css</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_post" />'. $magazine_print_css_post .'</textarea>
                                     <div id="magazine_print_css_post">'. $magazine_print_css_post .'</div>
                                 </details>
                                 <details>
-                                    <summary>Page <i>page.css</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
+                                    <summary>Page <i>page.css</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_page" />'. $magazine_print_css_page .'</textarea>
                                     <div id="magazine_print_css_page">'. $magazine_print_css_page .'</div>
                                 </details>
@@ -149,17 +149,17 @@
                             <th scope="row">JavaScript</th>
                             <td>
                                 <details>
-                                    <summary>Main <i>script.js</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
+                                    <summary>Main <i>script.js</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_main" />'. $magazine_print_js_main .'</textarea>
                                     <div id="magazine_print_js_main">'. $magazine_print_js_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.js</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
+                                    <summary>Post <i>post.js</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_post" />'. $magazine_print_js_post .'</textarea>
                                     <div id="magazine_print_js_post">'. $magazine_print_js_post .'</div>
                                 </details>
                                 <details>
-                                    <summary>Page <i>page.js</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
+                                    <summary>Page <i>page.js</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_page" />'. $magazine_print_js_page .'</textarea>
                                     <div id="magazine_print_js_page">'. $magazine_print_js_page .'</div>
                                 </details>
@@ -185,7 +185,7 @@
                         Be aware that JavaScript is only supported by PagedJS and Vivliostyle.
                     </p>
                     <p class="submit">
-                        <input type="submit" name="Submit" class="button-primary" value="Save Theme Changes" />
+                        <input type="submit" name="Submit" class="button-primary button-magazine" value="Save Theme Changes" />
                     </p>
                     <input name="action" value="magazine_edit_theme" type="hidden" />
                 </form>
@@ -208,7 +208,7 @@
                         </tr>
                     </table>
                     <p class="submit">
-                        <input type="submit" name="Submit" class="button-primary" value="Duplicate Theme ' . $sSelectedTheme . '" />
+                        <input type="submit" name="Submit" class="button-primary button-magazine" value="Duplicate Theme ' . $sSelectedTheme . '" />
                     </p>
                     <input name="action" value="magazine_duplicate_theme" type="hidden" />
                 </form>
@@ -308,43 +308,112 @@
                     height: 400px;
                     width: 100%;
                     font-size: 14px;
-                    border-bottom: 2px solid lightgray;
-                    border-left: 2px solid lightgray;
-                    border-right: 2px solid lightgray;
+                    border-bottom: 2px solid lightseagreen;
+                    border-left: 2px solid lightseagreen;
+                    border-right: 2px solid lightseagreen;
                     box-sizing: border-box;
                 }
 
-                h1 svg{
-                    height: 18px;
+                .wrap-magazine h1 {
+                    border-bottom: 2px solid lightgray;
                 }
 
-                details{
+                .wrap-magazine h1 i{
+                    float:right;
+                    color:lightgray;
+                }
+
+                .wrap-magazine h1::after{
+                    content:"";
+                    display:block;
+                    clear:both;
+                }
+
+                .wrap-magazine h1 svg{
+                    height: 18px;
+                    color: lightseagreen;
+                }
+
+                .wrap-magazine details{
                     margin-bottom:12px;
                 }
 
-                summary{
+                .wrap-magazine summary{
                     cursor:pointer;
                     height: 32px;
                     line-height: 32px;
                     clear: both;
                     border-bottom: 2px solid lightgray;
+                    padding: 0 8px;
+                    box-sizing: border-box;
                 }
 
-                summary:focus{
+                .wrap-magazine summary span{
+                    color:lightgray;
+                }
+
+                .wrap-magazine details[open] summary{
+                    font-weight:bold;
+                    border-bottom: 2px solid lightseagreen;
+                }
+
+                .wrap-magazine details[open] summary span{
+                    color:inherit;
+                }
+
+                .wrap-magazine summary svg{
+                    height: 16px;
+                    position: relative;
+                    top: 2px;
+                }
+
+                .wrap-magazine details[open] summary,
+                .wrap-magazine summary:focus{
                     outline-color:lightseagreen;
+                    width: calc(100% - 2px);
+                    margin-left: 1px;
                 }
 
-                summary::marker{
+                .wrap-magazine summary::marker{
                     color:lightseagreen;
                 }
 
-                summary i{
+                .wrap-magazine summary i{
                     color:lightgray;
                     font-weight:bold;
                 }
 
-                summary span{
+                .wrap-magazine summary span{
                     float:right;
+                }
+
+                .wrap-magazine a{
+                    color: lightseagreen !important;
+                }
+
+                .wrap-magazine a:hover,
+                .wrap-magazine a:focus,
+                .wrap-magazine a:active{
+                    color: #007D76 !important;
+                }
+
+                .wrap-magazine select:focus, 
+                .wrap-magazine input:focus{
+                    outline-color:lightseagreen;
+                    border-color: lightseagreen;
+                    box-shadow: 0 0 0 1px lightseagreen;
+                }
+
+                .wrap-magazine .button-magazine{
+                    background: lightseagreen !important;
+                    border-color: lightseagreen !important;
+                }
+
+                .wrap-magazine .button-magazine:hover,
+                .wrap-magazine .button-magazine:focus,
+                .wrap-magazine .button-magazine:active{
+                    background: #007D76 !important;
+                    border-color: #007D76 !important;
                 }
             </style>';
         });
