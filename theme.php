@@ -304,6 +304,57 @@
                                 <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. Important: use the name, not the label!</p>',
             ));
     
+            $screen->add_help_tab(array(
+                'id' => 'magazine_placeholder_help',
+                'title' => 'Helpful PrintCSS Resources',
+                'content' => '<ul>
+                                <li>
+                                    <b>Introduction to PrintCSS and CSS Paged Media</b><br />
+                                    <a href="https://print-css.rocks/" target="_blank" rel="noopener">https://print-css.rocks/</a>
+                                </li>
+                                <li>
+                                    <b>Introduction to CSS for Paged Media</b><br />
+                                    <a href="https://www.antennahouse.com/css" target="_blank" rel="noopener">https://www.antennahouse.com/css</a>
+                                </li>
+                                <li>
+                                    <b>Designing For Print With CSS</b><br />
+                                    <a href="https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/" target="_blank" rel="noopener">https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/</a>
+                                </li>
+                                <li>
+                                    <b>Building Books with CSS3</b><br />
+                                    <a href="https://alistapart.com/article/building-books-with-css3/" target="_blank" rel="noopener">https://alistapart.com/article/building-books-with-css3/</a>
+                                </li>
+                                <li>
+                                    <b>CSS Paged Media Module Level 3</b><br />
+                                    <a href="https://www.w3.org/TR/css-page-3/" target="_blank" rel="noopener">https://www.w3.org/TR/css-page-3/</a>
+                                </li>
+                                <li>        
+                                    <b>CSS Generated Content for Paged Media Module</b><br />
+                                    <a href="https://www.w3.org/TR/css-gcpm-3/" target="_blank" rel="noopener">https://www.w3.org/TR/css-gcpm-3/</a>
+                                </li>
+                                <li>
+                                    <b>A comparison of different html2pdf tools</b><br />
+                                    <a href="https://www.html2pdf.guru/" target="_blank" rel="noopener">https://www.html2pdf.guru/</a>
+                                </li>
+                                <li>
+                                    <b>PrintCSS Articles</b><br />
+                                    <a href="http://printcss.blog/" target="_blank" rel="noopener">http://printcss.blog/</a>
+                                </li>
+                                <li>
+                                    <b>PrintCSS Videos</b><br />
+                                    <a href="https://printcss.tube/" target="_blank" rel="noopener">https://printcss.tube/</a>
+                                </li>
+                                <li>
+                                    <b>PrintCSS Directory</b><br />
+                                    <a href="https://printcss.directory/" target="_blank" rel="noopener">https://printcss.directory/</a>
+                                </li>
+                                <li>
+                                    <b>PrintCSS Cards</b><br />
+                                    <a href="https://printcss.cards/" target="_blank" rel="noopener">https://printcss.cards/</a>
+                                </li>
+                            </ul>',
+            ));
+    
             if (count($help_tabs)){
                 foreach ($help_tabs as $help_tab){
                     $screen->add_help_tab($help_tab);
