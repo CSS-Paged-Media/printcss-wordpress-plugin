@@ -23,22 +23,47 @@
             $text = $instance['text'] ? esc_attr($instance['text']) : 'Render PDF';
 
             $sCurrentURL = home_url($wp->request);
-            echo '<a href="' . $sCurrentURL . '?renderPDF=true">' . $text . '</a>';
+            echo '<a href="' . $sCurrentURL . '?renderPDF=true&theme=' . $instance['theme'] . '">' . $text . '</a>';
         }
 
         // Create widget settings.
         public function form($instance) {
             $text       = $instance['text'] ? esc_attr($instance['text']) : 'Render PDF';
             $fieldname  = $this->get_field_name('text');
+            $theme       = $instance['theme'];
+            $fieldname_theme  = $this->get_field_name('theme');
+
+            $aThemes = magazine_template::_getTemplateNames();
+            
+            if(is_array($aThemes) && count($aThemes) == 0){ // Create Demo Template if there is none
+                magazine_template::_createDemoTemplate();
+                $aThemes = magazine_template::_getTemplateNames();
+            }
+
+            $sThemeOptions = '';
+            foreach($aThemes as $sThemeName){
+                $sThemeOptions .= '<option value="' 
+                    . $sThemeName . '"' 
+                    . ($sThemeName == $theme ? 'selected' : '') 
+                    . '>' . $sThemeName . '</option>';
+            }
 
             echo '<p>
-                    <label for="magazine_widget_option_text">Text</label> 
-                    <input 
+                        <label for="magazine_widget_option_text">Text</label> 
+                        <input 
+                            class="widefat" 
+                            id="magazine_widget_option_text" 
+                            name="' . $fieldname . '" 
+                            type="text" 
+                            value="' . $text . '" />
+                    </p><p>
+                    <label for="magazine_widget_option_theme">Theme</label> 
+                    <select 
                         class="widefat" 
-                        id="magazine_widget_option_text" 
-                        name="' . $fieldname . '" 
-                        type="text" 
-                        value="' . $text . '" />
+                        id="magazine_widget_option_theme" 
+                        name="' . $fieldname_theme . '">
+                        ' . $sThemeOptions . '
+                    </select>
                 </p>';
         }
 
@@ -48,6 +73,11 @@
             $instance['text'] = (!empty($new_instance['text'])) 
                 ? 
                 strip_tags($new_instance['text']) 
+                : 
+                '';
+            $instance['theme'] = (!empty($new_instance['theme'])) 
+                ? 
+                strip_tags($new_instance['theme']) 
                 : 
                 '';
 
@@ -66,7 +96,7 @@
             global $post;
 
             if($post->ID > 0 && $_GET['renderPDF'] == 'true'){
-                $aRenderResult = magazine_pdf::_renderPDF([$post->ID]);
+                $aRenderResult = magazine_pdf::_renderPDF([$post->ID], $_GET['theme']);
                 $http_status   = $aRenderResult['status_code'];
                 $pdfContent    = $aRenderResult['content'];
 

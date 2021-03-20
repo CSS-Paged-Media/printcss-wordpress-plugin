@@ -7,24 +7,24 @@
          * return the status code and result.
          * 
          * @param array $aPostIds       The post ids for which the PDF should be rendered.
+         * @param string $sTheme        The name of the theme which should be used to render.
          * 
          * @return array                The status code and result.
          */
-        public static function _renderPDF(array $aPostIds) : array {
+        public static function _renderPDF(array $aPostIds, string $sTheme) : array {
             $magazine_rendering_tool    = get_option('magazine_rendering_tool');
             $magazine_rapidapi_key      = get_option('magazine_rapidapi_key');
             $sPageOrPost                = get_post_type(reset($aPostIds));
-            $sTemplateName              = 'demo';
             
-            $sHtmlToRender  = magazine_template::_getHTML($sTemplateName, 'prefix');
-            $sHtmlToRender .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getHTML($sTemplateName, $sPageOrPost));
-            $sHtmlToRender .= magazine_template::_getHTML($sTemplateName, 'postfix');
+            $sHtmlToRender  = magazine_template::_getHTML($sTheme, 'prefix');
+            $sHtmlToRender .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getHTML($sTheme, $sPageOrPost));
+            $sHtmlToRender .= magazine_template::_getHTML($sTheme, 'postfix');
     
-            $sCssToRender   = magazine_template::_getCSS($sTemplateName, 'style');
-            $sCssToRender  .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getCSS($sTemplateName, $sPageOrPost));
+            $sCssToRender   = magazine_template::_getCSS($sTheme, 'style');
+            $sCssToRender  .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getCSS($sTheme, $sPageOrPost));
     
-            $sJsToRender    = magazine_template::_getJS($sTemplateName, 'script');
-            $sJsToRender   .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getJS($sTemplateName, $sPageOrPost));
+            $sJsToRender    = magazine_template::_getJS($sTheme, 'script');
+            $sJsToRender   .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getJS($sTheme, $sPageOrPost));
     
             $curl = curl_init();
             if(trim($sJsToRender) === ''){

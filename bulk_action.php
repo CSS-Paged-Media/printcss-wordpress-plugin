@@ -4,7 +4,16 @@
     add_filter( 'bulk_actions-edit-page', 'magazine_render_pdf_bulk_actions');
     
     function magazine_render_pdf_bulk_actions($bulk_actions) {
-        $bulk_actions['magazine_render_pdf_bulk_action'] = __( 'Render PDF', 'magazine_render_pdf');
+        $aThemes = magazine_template::_getTemplateNames();
+            
+        if(is_array($aThemes) && count($aThemes) == 0){ // Create Demo Template if there is none
+            magazine_template::_createDemoTemplate();
+            $aThemes = magazine_template::_getTemplateNames();
+        }
+
+        foreach($aThemes as $sTheme){
+            $bulk_actions['magazine_render_pdf_bulk_action_'. $sTheme] = __( 'Render PDF with ' . $sTheme . ' Theme', 'magazine_render_pdf');
+        }
 
         return $bulk_actions;
     }
@@ -13,12 +22,14 @@
     add_filter('handle_bulk_actions-edit-page', 'magazine_render_pdf_bulk_handler', 10, 3);
     
     function magazine_render_pdf_bulk_handler($redirect_to, $doaction, $post_ids) {
-        if ($doaction !== 'magazine_render_pdf_bulk_action') {
+        if (strpos($doaction, 'magazine_render_pdf_bulk_action_') !== 0) {
             
             return $redirect_to;
         }
 
-        $aRenderResult = magazine_pdf::_renderPDF($post_ids);
+        $sTheme = str_replace('magazine_render_pdf_bulk_action_', '', $doaction);
+
+        $aRenderResult = magazine_pdf::_renderPDF($post_ids, $sTheme);
         $http_status   = $aRenderResult['status_code'];
         $pdfContent    = $aRenderResult['content'];
 
