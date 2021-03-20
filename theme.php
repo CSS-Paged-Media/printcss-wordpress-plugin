@@ -43,7 +43,11 @@
 
             $sThemeOptions  = '';
 
-            if(!isset($_SESSION['magazine_theme_to_edit'])){
+            if(
+                !isset($_SESSION['magazine_theme_to_edit'])
+                ||
+                !in_array($_SESSION['magazine_theme_to_edit'], $aThemes)
+            ){
                 $_SESSION['magazine_theme_to_edit'] = reset($aThemes);
             }
 
