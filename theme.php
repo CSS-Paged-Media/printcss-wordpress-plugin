@@ -70,8 +70,7 @@
             $magazine_print_js_page        = magazine_template::_getJS($sSelectedTheme, 'page');
 
             echo '<div class="wrap">
-                <div id="icon-options-general" class="icon32"><br /></div>
-                <h2>Magazine Theme Editor <i>powered by <a href="https://printcss.cloud" target="_blank" rel="noopener">PrintCSS Cloud</a></i></h2>
+                <h1>Magazine Theme Editor <i>powered by <a href="https://printcss.cloud" target="_blank" rel="noopener">PrintCSS Cloud</a></i></h1>
                 <form name="magazine_theme_selection_form" method="post">
                     <table class="form-table">
                         <tr valign="top">
@@ -91,8 +90,12 @@
                     </table>
                     <input name="action" value="magazine_select_theme" type="hidden" />
                 </form>
-                <div id="icon-options-general" class="icon32"><br /></div>
-                <h2>Edit ' . $sSelectedTheme . '</h2>
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    Edit ' . $sSelectedTheme . '
+                </h1>
                 <form name="magazine_theme_edit_form" method="post">
                     <table class="form-table">
                         <tr valign="top">
@@ -101,22 +104,22 @@
                         </th>
                         <td>
                             <details>
-                                <summary>Prefix (Comes first, <b><u>NO</u> Placeholder Support</b>)</summary>
+                                <summary>Prefix <i>prefix.html</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_prefix" />'. htmlentities($magazine_print_html_prefix) .'</textarea>
                                 <div id="magazine_print_html_prefix">'. htmlentities($magazine_print_html_prefix) .'</div>
                             </details>
                             <details>
-                                <summary>Post (Once per selected Post, <b>Placeholder Support</b>)</summary>
+                                <summary>Post <i>post.html</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
                                 <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
                             </details>
                             <details>
-                                <summary>Page (Once per selected Page, <b>Placeholder Support</b>)</summary>
+                                <summary>Page <i>page.html</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_page" />'. htmlentities($magazine_print_html_page) .'</textarea>
                                 <div id="magazine_print_html_page">'. htmlentities($magazine_print_html_page) .'</div>
                             </details>
                             <details>
-                                <summary>Postfix (Comes last, <b><u>NO</u> Placeholder Support</b>)</summary>
+                                <summary>Postfix <i>postfix.html</i><span>(Comes last, <b><u>NO</u> Placeholder Support</b>)</span></summary>
                                 <textarea style="display:none;" name="magazine_print_html_postfix" />'. htmlentities($magazine_print_html_postfix) .'</textarea>
                                 <div id="magazine_print_html_postfix">'. htmlentities($magazine_print_html_postfix) .'</div>
                             </details>
@@ -126,17 +129,17 @@
                             <th scope="row">CSS</th>
                             <td>
                                 <details>
-                                    <summary>Main (Comes first, <b><u>NO</u> Placeholder Support</b>)</summary>
+                                    <summary>Main <i>style.css</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_main" />'. $magazine_print_css_main .'</textarea>
                                     <div id="magazine_print_css_main">'. $magazine_print_css_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post (Once per selected Post, <b>Placeholder Support</b>)</summary>
+                                    <summary>Post <i>post.css</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_post" />'. $magazine_print_css_post .'</textarea>
                                     <div id="magazine_print_css_post">'. $magazine_print_css_post .'</div>
                                 </details>
                                 <details>
-                                    <summary>Page (Once per selected Page, <b>Placeholder Support</b>)</summary>
+                                    <summary>Page <i>page.css</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_css_page" />'. $magazine_print_css_page .'</textarea>
                                     <div id="magazine_print_css_page">'. $magazine_print_css_page .'</div>
                                 </details>
@@ -146,17 +149,17 @@
                             <th scope="row">JavaScript</th>
                             <td>
                                 <details>
-                                    <summary>Main (Comes first, <b><u>NO</u> Placeholder Support</b>)</summary>
+                                    <summary>Main <i>script.js</i><span>(Comes first, <b><u>NO</u> Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_main" />'. $magazine_print_js_main .'</textarea>
                                     <div id="magazine_print_js_main">'. $magazine_print_js_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post (Once per selected Post, <b>Placeholder Support</b>)</summary>
+                                    <summary>Post <i>post.js</i><span>(Once per selected Post, <b>Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_post" />'. $magazine_print_js_post .'</textarea>
                                     <div id="magazine_print_js_post">'. $magazine_print_js_post .'</div>
                                 </details>
                                 <details>
-                                    <summary>Page (Once per selected Page, <b>Placeholder Support</b>)</summary>
+                                    <summary>Page <i>page.js</i><span>(Once per selected Page, <b>Placeholder Support</b>)</span></summary>
                                     <textarea style="display:none;" name="magazine_print_js_page" />'. $magazine_print_js_page .'</textarea>
                                     <div id="magazine_print_js_page">'. $magazine_print_js_page .'</div>
                                 </details>
@@ -186,8 +189,12 @@
                     </p>
                     <input name="action" value="magazine_edit_theme" type="hidden" />
                 </form>
-                <div id="icon-options-general" class="icon32"><br /></div>
-                <h2>Duplicate ' . $sSelectedTheme . '</h2>
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                    </svg>
+                    Duplicate ' . $sSelectedTheme . '
+                </h1>
                 <form name="magazine_theme_duplicate_form" method="post">
                     <table class="form-table">
                         <tr valign="top">
@@ -301,6 +308,43 @@
                     height: 400px;
                     width: 100%;
                     font-size: 14px;
+                    border-bottom: 2px solid lightgray;
+                    border-left: 2px solid lightgray;
+                    border-right: 2px solid lightgray;
+                    box-sizing: border-box;
+                }
+
+                h1 svg{
+                    height: 18px;
+                }
+
+                details{
+                    margin-bottom:12px;
+                }
+
+                summary{
+                    cursor:pointer;
+                    height: 32px;
+                    line-height: 32px;
+                    clear: both;
+                    border-bottom: 2px solid lightgray;
+                }
+
+                summary:focus{
+                    outline-color:lightseagreen;
+                }
+
+                summary::marker{
+                    color:lightseagreen;
+                }
+
+                summary i{
+                    color:lightgray;
+                    font-weight:bold;
+                }
+
+                summary span{
+                    float:right;
                 }
             </style>';
         });
