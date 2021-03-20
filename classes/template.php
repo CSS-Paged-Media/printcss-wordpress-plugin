@@ -259,7 +259,7 @@
                 mkdir($sMagazineThemePath);
             }
 
-            $sMagazineDemoThemePath = $sMagazineThemePath . 'demo/';
+            $sMagazineDemoThemePath = $sMagazineThemePath . 'Demo/';
             if(mkdir($sMagazineDemoThemePath)){ # create demo theme
                 
                 // HTML for POSTs with placeholder support post.html
