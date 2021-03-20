@@ -1,0 +1,124 @@
+#magazine_print_html_prefix,
+#magazine_print_html_post,
+#magazine_print_html_page,
+#magazine_print_html_postfix, 
+#magazine_print_css_main, 
+#magazine_print_css_post, 
+#magazine_print_css_page, 
+#magazine_print_js_main, 
+#magazine_print_js_post, 
+#magazine_print_js_page{
+    height: 400px;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 2px solid lightseagreen;
+    border-left: 2px solid lightseagreen;
+    border-right: 2px solid lightseagreen;
+    box-sizing: border-box;
+}
+
+.wrap-magazine h1 {
+    border-bottom: 2px solid lightgray;
+}
+
+.wrap-magazine h1 i{
+    float:right;
+    color:lightgray;
+}
+
+.wrap-magazine h1::after{
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.wrap-magazine h1 svg{
+    height: 18px;
+    color: lightseagreen;
+}
+
+.wrap-magazine details{
+    margin-bottom:12px;
+}
+
+.wrap-magazine summary{
+    cursor:pointer;
+    height: 32px;
+    line-height: 32px;
+    clear: both;
+    border-bottom: 2px solid lightgray;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+
+.wrap-magazine summary span{
+    color:lightgray;
+}
+
+.wrap-magazine details[open] summary{
+    font-weight:bold;
+    border-bottom: 2px solid lightseagreen;
+}
+
+.wrap-magazine details[open] summary span{
+    color:inherit;
+}
+
+.wrap-magazine summary svg{
+    height: 16px;
+    position: relative;
+    top: 2px;
+}
+
+.wrap-magazine details[open] summary,
+.wrap-magazine summary:focus{
+    outline-color:lightseagreen;
+    width: calc(100% - 2px);
+    margin-left: 1px;
+}
+
+.wrap-magazine summary::marker{
+    color:lightseagreen;
+}
+
+.wrap-magazine summary i{
+    color:lightgray;
+    font-weight:bold;
+}
+
+.wrap-magazine summary span{
+    float:right;
+}
+
+.wrap-magazine a{
+    color: lightseagreen !important;
+}
+
+.wrap-magazine a:hover,
+.wrap-magazine a:focus,
+.wrap-magazine a:active{
+    color: #007D76 !important;
+}
+
+.wrap-magazine select{
+    max-width:100% !important;
+}
+
+.wrap-magazine select:focus, 
+.wrap-magazine input:focus{
+    outline-color:lightseagreen;
+    border-color: lightseagreen;
+    box-shadow: 0 0 0 1px lightseagreen;
+}
+
+.wrap-magazine .button-magazine{
+    background: lightseagreen !important;
+    border-color: lightseagreen !important;
+}
+
+.wrap-magazine .button-magazine:hover,
+.wrap-magazine .button-magazine:focus,
+.wrap-magazine .button-magazine:active{
+    background: #007D76 !important;
+    border-color: #007D76 !important;
+}

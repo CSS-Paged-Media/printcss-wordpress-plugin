@@ -55,49 +55,7 @@
                     </form>
                 </div>
                 <style>
-                    .wrap-magazine h1 {
-                        border-bottom: 2px solid lightgray;
-                    }
-
-                    .wrap-magazine h1 i{
-                        float:right;
-                        color:lightgray;
-                    }
-
-                    .wrap-magazine h1::after{
-                        content:"";
-                        display:block;
-                        clear:both;
-                    }
-
-                    .wrap-magazine a{
-                        color: lightseagreen !important;
-                    }
-    
-                    .wrap-magazine a:hover,
-                    .wrap-magazine a:focus,
-                    .wrap-magazine a:active{
-                        color: #007D76 !important;
-                    }
-    
-                    .wrap-magazine select:focus, 
-                    .wrap-magazine input:focus{
-                        outline-color:lightseagreen;
-                        border-color: lightseagreen;
-                        box-shadow: 0 0 0 1px lightseagreen;
-                    }
-
-                    .wrap-magazine .button-magazine{
-                        background: lightseagreen !important;
-                        border-color: lightseagreen !important;
-                    }
-    
-                    .wrap-magazine .button-magazine:hover,
-                    .wrap-magazine .button-magazine:focus,
-                    .wrap-magazine .button-magazine:active{
-                        background: #007D76 !important;
-                        border-color: #007D76 !important;
-                    }
+                    @import "' . plugin_dir_url( __DIR__ ) . '/magazine/css/options.css";
                 </style>';
         });
     });
