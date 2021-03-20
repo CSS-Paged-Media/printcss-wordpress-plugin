@@ -17,6 +17,10 @@
     box-sizing: border-box;
 }
 
+.wrap-magazine{
+    margin:32px 20px 0 2px;
+}
+
 .wrap-magazine h1 {
     border-bottom: 2px solid lightgray;
 }

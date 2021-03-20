@@ -78,16 +78,13 @@
                 <form name="magazine_theme_selection_form" method="post">
                     <table class="form-table">
                         <tr valign="top">
-                            <th scope="row">Select Theme to Edit</th>
+                            <th scope="row"><label for="magazine_theme_selection">Select Theme to Edit</label></th>
                             <td>
                                 <fieldset>
                                     <legend class="hidden">Select Theme to Edit</legend>
                                     <select onchange="this.form.submit()" name="magazine_theme_selection" style="width:100%;display:block;">
                                         ' . $sThemeOptions . '    
                                     </select>
-                                    <label for="magazine_theme_selection">
-                                        Themes are placed in the "wp-content/magazine_themes/" folder.
-                                    </label>
                                 </fieldset>
                             </td>
                         </tr>
@@ -170,24 +167,6 @@
                             </td>
                         </tr>
                     </table>
-                    <p>
-                        The placeholder <i>{{slug}}</i>, <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page title, feature image and content. Please be aware that images need to be available via a public URL for the API to use them. Additionally you can use the placeholders <i>{{author}}</i>,
-                        <i>{{date}}</i>,
-                        <i>{{date_gmt}}</i>,
-                        <i>{{excerpt}}</i>,
-                        <i>{{status}}</i>. If you need to show the date of the post/page in a different format you can use the placeholders 
-                        <i>{{year}}</i>,
-                        <i>{{month}}</i>,
-                        <i>{{day}}</i>,
-                        <i>{{hour}}</i>,
-                        <i>{{minute}}</i>.
-                    </p>
-                    <p>
-                        ACF is also supported just add {{YOUR_FIELD_NAME}} (<b>Important:</b> Use the name not the label!) and if your fields value appears in the PDF.
-                    </p>
-                    <p>
-                        Be aware that JavaScript is only supported by PagedJS and Vivliostyle.
-                    </p>
                     <p class="submit">
                         <input type="submit" name="Submit" class="button-primary button-magazine" value="Save Theme Changes" />
                     </p>
@@ -226,4 +205,109 @@
                 @import "' . plugin_dir_url( __DIR__ ) . '/magazine/css/theme.css";
             </style>';
         });
+    });
+
+    add_action('in_admin_header', function(){
+        $screen = get_current_screen();
+        if ($screen->base == 'appearance_page_magazine_theme_page') {
+            $help_tabs = $screen->get_help_tabs();
+            $screen->remove_help_tabs();
+    
+            $screen->add_help_tab(array(
+                'id' => 'magazine_overview_help',
+                'title' => 'Overview',
+                'content' => '<p>On this screen, you can manage your Magazine themes. The themes are placed in the <i>"wp-content/magazine_themes/"</i> folder on your filesystem.</p>
+                              <p>From this screen, you can:</p>
+                              <ul>
+                                <li>View Themes</li>
+                                <li>Edit Themes</li>
+                                <li>Duplicate Themes</li>
+                              </ul>
+                              <p>Before you start editing a theme, be sure you selected the correct one.</p>',
+            ));
+
+            $screen->add_help_tab(array(
+                'id' => 'magazine_html_help',
+                'title' => 'HTML',
+                'content' => '<p>In the HTML section of this screen, you can edit all HTML files of your Magazine theme.</p>
+                              <ul>
+                                <li>
+                                    <b>Prefix (prefix.html)</b><br/>
+                                    The prefix HTML you can use for front covers or intros, basically anything which should be added only once at the beginning of the PDF. In the prefix, you can not use any placeholders.
+                                </li>
+                                <li>
+                                    <b>Post (post.html)</b><br/>
+                                    The post HTML will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this HTML gets repeated five times. Within the post HTML, you can use any placeholders, for example, the <i>{{title}}</i> to always show the current Blogpost title.
+                                </li>
+                                <li>
+                                    <b>Page (page.html)</b><br/>
+                                    The page HTML will be loaded whenever you want to render a PDF from a page. This file gets added once per selected page. So if you choose five pages, this HTML gets repeated five times. Within the page HTML, you can use any placeholders, for example, the <i>{{title}}</i> to always show the current page title.
+                                </li>
+                                <li>
+                                    <b>Postfix (postfix.html)</b><br/>
+                                    The postfix HTML you can use for back covers or indexes, basically anything which should be added only once at the end of the PDF. In the postfix, you can not use any placeholders.
+                                </li>
+                              </ul>
+                              <p>You can leave any of these HTML files empty if you do not need them. For example, if you do not need a cover, do not put content into the prefix HTML.</p>',
+            ));
+    
+            $screen->add_help_tab(array(
+                'id' => 'magazine_css_help',
+                'title' => 'CSS',
+                'content' => '<p>In the CSS section of this screen, you can edit all CSS files of your Magazine theme.</p>
+                            <ul>
+                            <li>
+                                <b>Main (style.css)</b><br/>
+                                The main CSS is loaded for any rendering you do. In the main CSS, you can not use any placeholders.
+                            </li>
+                            <li>
+                                <b>Post (post.css)</b><br/>
+                                The post CSS will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this CSS gets repeated five times. Within the post CSS, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug.
+                            </li>
+                            <li>
+                                <b>Page (page.css)</b><br/>
+                                The page CSS will be loaded whenever you want to render a page PDF; this file gets added once per selected page. So if you choose 5 pages, this CSS gets repeated five times. Within the post CSS, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per page slug.
+                            </li>
+                            </ul>
+                            <p>You can leave any of these CSS files empty if you do not need them. For example, if you do not need a Blogpost specific CSS, do not put content into the post CSS file.</p>',
+            ));
+    
+            $screen->add_help_tab(array(
+                'id' => 'magazine_js_help',
+                'title' => 'JavaScript',
+                'content' => '<p>In the JavaScript section of this screen, you can edit all JavaScript files of your Magazine theme.</p>
+                            <p><b>Be aware that JavaScript is only supported by PagedJS and Vivliostyle.</b></p>
+                            <ul>
+                            <li>
+                                <b>Main (script.js)</b><br/>
+                                The main JavaScript is loaded for any rendering you do. In the main JavaScript, you can not use any placeholders.
+                            </li>
+                            <li>
+                                <b>Post (post.js)</b><br/>
+                                The post JavaScript will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this JavaScript gets repeated five times. Within the post JavaScript, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug.
+                            </li>
+                            <li>
+                                <b>Page (page.js)</b><br/>
+                                The page JavaScript will be loaded whenever you want to render a page PDF; this file gets added once per selected page. So if you choose 5 pages, this JavaScript gets repeated five times. Within the post JavaScript, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per page slug.
+                            </li>
+                            </ul>
+                            <p>You can leave any of these JavaScript files empty if you do not need them. For example, if you do not need a Blogpost specific JavaScript, do not put content into the post JavaScript file.</p>',
+            ));
+    
+            $screen->add_help_tab(array(
+                'id' => 'magazine_placeholder_help',
+                'title' => 'Placeholder',
+                'content' => '<p>The placeholders <i>{{slug}}</i>, <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page slug, title, feature image and content. Additionally you can use the placeholders <i>{{author}}</i>, <i>{{date}}</i>, <i>{{date_gmt}}</i>, <i>{{excerpt}}</i>, <i>{{status}}</i>. If you need to show the date of the post/page in a different format you can use the placeholders <i>{{year}}</i>, <i>{{month}}</i>, <i>{{day}}</i>, <i>{{hour}}</i>, <i>{{minute}}</i>.</p>
+
+                                <p>Please be aware that images need to be available via a public URL for the API to use them.</p>
+                                
+                                <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. Important: use the name, not the label!</p>',
+            ));
+    
+            if (count($help_tabs)){
+                foreach ($help_tabs as $help_tab){
+                    $screen->add_help_tab($help_tab);
+                }
+            }
+        }
     });
