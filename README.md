@@ -19,6 +19,10 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Changelog
 
+- 0.0.8
+    - Add Download Theme as ZIP Option
+    - Add Upload Theme ZIP File Option
+    - Add Help Tabs for Options and Themes Page
 - 0.0.7
     - Update Theme and Options Page Layout
     - Fix Activation Hook to create Demo Theme
