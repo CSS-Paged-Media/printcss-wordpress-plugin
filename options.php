@@ -142,14 +142,29 @@
                               <ul>
                                 <li>
                                     <b>Rendering Tool:</b><br />
-                                    Check out the Tools Websites for more information about their capabilities: <a href="https://weasyprint.org/" target="_blank" rel="noopener">WeasyPrint</a>, <a href="https://www.pagedjs.org/" target="_blank" rel="noopener">PagedJS</a>, and <a href="https://vivliostyle.org/" target="_blank" rel="noopener">Vivliostyle</a>.
+                                    Depending on the filled API Key and Local Command Options you see the supported rendering tools here. You need to use at least one of the API or the local command option for a rendering tool to appear in this selection.
                                 </li>
                                 <li>
                                     <b>RapidAPI Key:</b><br />
-                                    To send the request to the PrintCSS Cloud API, you <a href="https://rapidapi.com/azettl/api/printcss-cloud/pricing" target="_blank" rel="noopener">need to subscribe to a plan on RapidAPI</a>. With this, you get the API key that is required to authenticate with our REST service.
+                                    To send the request to the PrintCSS Cloud API, you <a href="https://rapidapi.com/azettl/api/printcss-cloud/pricing" target="_blank" rel="noopener">need to subscribe to a plan on RapidAPI</a>. With this, you get the API key that is required to authenticate with the PrintCSS Cloud REST service. The PrintCSS Cloud supports the rendering tools <a href="https://weasyprint.org/" target="_blank" rel="noopener">WeasyPrint</a>, <a href="https://www.pagedjs.org/" target="_blank" rel="noopener">PagedJS</a>, and <a href="https://vivliostyle.org/" target="_blank" rel="noopener">Vivliostyle</a>.
                                 </li>
-                              </ul>
-                              <p>Before you start editing a theme, be sure you selected the correct one.</p>',
+                                <li>
+                                    <b>DocRaptor Key:</b><br />
+                                    To send the request to the DocRaptor API, you <a href="https://docraptor.com/signup" target="_blank" rel="noopener">need to subscribe to a plan on docraptor.com</a>. With this, you get the API key that is required to authenticate with the REST service.
+                                </li>
+                                <li>
+                                    <b>typeset.sh Project Key & Project Token:</b><br />
+                                    To send the request to the typeset.sh API, you <a href="https://typeset.sh/en/register" target="_blank" rel="noopener">need to subscribe to a plan on typeset.sh</a>. With this, you get the project key and token that is required to authenticate with their REST service.
+                                </li>
+                                <li>
+                                    <b>Local Command:</b><br />
+                                    If you have a PDF rendering tool installed locally, you can provide the command here, be aware that the tool needs to support getting the HTML via STDIN and needs to return the PDF via STDOUT.
+                                    <br />
+                                    AH Formatter Example: <samp>/usr/AHFormatterV71_64/run.sh -x 4 -d @STDIN -o @STDOUT</samp>
+                                    <br />
+                                    Prince Example: <samp>prince --no-warn-css --javascript -</samp>
+                                </li>
+                              </ul>',
             ));
     
             if (count($help_tabs)){
