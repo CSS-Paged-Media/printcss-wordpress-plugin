@@ -97,7 +97,7 @@
                     }
 
                     $oSend = [
-                        'test' => true,
+                        'test'             => false,
                         'document_content' => $sCodeToRender,
                         'type'             => 'pdf',
                         'javascript'       => 'true',
