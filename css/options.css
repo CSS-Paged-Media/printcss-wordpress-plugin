@@ -11,6 +11,10 @@
     color:lightgray;
 }
 
+.wrap-magazine h1 i svg{
+    height:23px;
+}
+
 .wrap-magazine h1::after{
     content:"";
     display:block;
