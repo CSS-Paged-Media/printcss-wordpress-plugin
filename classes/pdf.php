@@ -12,10 +12,12 @@
          * @return array                The status code and result.
          */
         public static function _renderPDF(array $aPostIds, string $sTheme) : array {
-            $magazine_rendering_tool    = get_option('magazine_rendering_tool');
-            $magazine_rapidapi_key      = get_option('magazine_rapidapi_key');
-            $magazine_docraptor_key     = get_option('magazine_docraptor_key');
-            $sPageOrPost                = get_post_type(reset($aPostIds));
+            $magazine_rendering_tool        = get_option('magazine_rendering_tool');
+            $magazine_rapidapi_key          = get_option('magazine_rapidapi_key');
+            $magazine_docraptor_key         = get_option('magazine_docraptor_key');
+            $magazine_typeset_token_key     = get_option('magazine_typeset_token_key');
+            $magazine_typeset_project_key   = get_option('magazine_typeset_project_key');
+            $sPageOrPost                    = get_post_type(reset($aPostIds));
             
             $sHtmlToRender  = magazine_template::_getHTML($sTheme, 'prefix');
             $sHtmlToRender .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getHTML($sTheme, $sPageOrPost));
@@ -78,23 +80,11 @@
                 case 'prince13':
                 case 'prince12':
                 case 'prince11':
-                    $sCodeToRender = '';
-                    if(strpos($sHtmlToRender, '<html') === false){
-                        $sCodeToRender = '<!DOCTYPE html>
-                            <html>
-                            <head>
-                                <style>' . $sCssToRender . '</style>
-                            </head>
-                            <body>
-                                ' . $sHtmlToRender . '
-                                <script>' . $sJsToRender . '</script>
-                            </body>
-                            </html>';
-                    }else if(strpos($sHtmlToRender, '</head>') !== false){
-                        $sCodeToRender = str_replace('</head>', '<style>' . $sCssToRender . '</style><script>' . $sJsToRender . '</script></head>', $sHtmlToRender);
-                    }else{
-                        $sCodeToRender = '<style>' . $sCssToRender . '</style>' . $sHtmlToRender . '<script>' . $sJsToRender . '</script>';
-                    }
+                    $sCodeToRender = self::_getCompleteCodeToRender(
+                        $sHtmlToRender,
+                        $sCssToRender,
+                        $sJsToRender
+                    );
 
                     $oSend = [
                         'test'             => false,
@@ -145,11 +135,81 @@
                     curl_close($curl);
 
                     break;
+
+                case 'typeset0.16.3':
+                case 'typeset0.16.0':
+                case 'typeset0.15.0':
+                    $sVersionNumber = str_replace('typeset', '', $magazine_rendering_tool);
+                    $sCodeToRender = self::_getCompleteCodeToRender(
+                        $sHtmlToRender,
+                        $sCssToRender,
+                        $sJsToRender
+                    );
+
+                    $curl = curl_init();
+                    curl_setopt_array(
+                        $curl, 
+                        array(
+                            CURLOPT_URL => 'https://api.typeset.sh/?version=' . $sVersionNumber,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => $sCodeToRender,
+                            CURLOPT_HTTPHEADER => array(
+                                'project: ' . $magazine_typeset_project_key,
+                                'token: ' . $magazine_typeset_token_key
+                            ),
+                        )
+                    );
+                    $pdfContent = curl_exec($curl);
+                    $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                    curl_close($curl);
+
+                    break;
             }
     
             return [
                 'status_code' => $http_status,
                 'content'     => $pdfContent
             ];
+        }
+
+        /**
+         * This Method is used to build the code to render. 
+         * 
+         * @param string $sHtmlToRender         The HTML code for the PDF
+         * @param string $sCssToRender          The CSS code for the PDF
+         * @param string $sJsToRender           The JS code for the PDF 
+         * 
+         * @return string
+         */
+        public static function _getCompleteCodeToRender(
+            string $sHtmlToRender,
+            string $sCssToRender,
+            string $sJsToRender
+        ) : string {
+            $sCodeToRender = '';
+            if(strpos($sHtmlToRender, '<html') === false){
+                $sCodeToRender = '<!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>' . $sCssToRender . '</style>
+                    </head>
+                    <body>
+                        ' . $sHtmlToRender . '
+                        <script>' . $sJsToRender . '</script>
+                    </body>
+                    </html>';
+            }else if(strpos($sHtmlToRender, '</head>') !== false){
+                $sCodeToRender = str_replace('</head>', '<style>' . $sCssToRender . '</style><script>' . $sJsToRender . '</script></head>', $sHtmlToRender);
+            }else{
+                $sCodeToRender = '<style>' . $sCssToRender . '</style>' . $sHtmlToRender . '<script>' . $sJsToRender . '</script>';
+            }
+
+            return $sCodeToRender;
         }
     }

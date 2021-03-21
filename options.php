@@ -1,20 +1,26 @@
 <?php
 
     if ('magazin_update_options' === $_POST['action']){
-        update_option("magazine_rendering_tool", $_POST['magazine_rendering_tool']);
-        update_option("magazine_rapidapi_key",   $_POST['magazine_rapidapi_key']);
-        update_option("magazine_docraptor_key",   $_POST['magazine_docraptor_key']);
+        update_option("magazine_rendering_tool",        $_POST['magazine_rendering_tool']);
+        update_option("magazine_rapidapi_key",          $_POST['magazine_rapidapi_key']);
+        update_option("magazine_docraptor_key",         $_POST['magazine_docraptor_key']);
+        update_option("magazine_typeset_token_key",     $_POST['magazine_typeset_token_key']);
+        update_option("magazine_typeset_project_key",   $_POST['magazine_typeset_project_key']);
     }
 
     add_action('admin_menu', function(){
-        add_option("magazine_rendering_tool",   "weasyprint");
-        add_option("magazine_rapidapi_key",     "");
-        add_option("magazine_docraptor_key",    "");
+        add_option("magazine_rendering_tool",       "weasyprint");
+        add_option("magazine_rapidapi_key",         "");
+        add_option("magazine_docraptor_key",        "");
+        add_option("magazine_typeset_token_key",    "");
+        add_option("magazine_typeset_project_key",  "");
 
         add_options_page('Magazine', 'Magazine', 9, 'magazine_option_page', function(){
-            $magazine_rendering_tool = get_option('magazine_rendering_tool');
-            $magazine_rapidapi_key   = get_option('magazine_rapidapi_key');
-            $magazine_docraptor_key  = get_option('magazine_docraptor_key');
+            $magazine_rendering_tool        = get_option('magazine_rendering_tool');
+            $magazine_rapidapi_key          = get_option('magazine_rapidapi_key');
+            $magazine_docraptor_key         = get_option('magazine_docraptor_key');
+            $magazine_typeset_token_key     = get_option('magazine_typeset_token_key');
+            $magazine_typeset_project_key   = get_option('magazine_typeset_project_key');
 
             $sSelectOptions          = '';
             if(!empty($magazine_rapidapi_key)){
@@ -30,6 +36,13 @@
                                         <option value="prince13" '. (($magazine_rendering_tool == 'prince13') ? 'selected="selected"' : '') .'>Prince 13</option>
                                         <option value="prince12" '. (($magazine_rendering_tool == 'prince12') ? 'selected="selected"' : '') .'>Prince 12</option>
                                         <option value="prince11" '. (($magazine_rendering_tool == 'prince11') ? 'selected="selected"' : '') .'>Prince 11</option>
+                                    </optgroup>';
+            }
+            if(!empty($magazine_typeset_token_key) && !empty($magazine_typeset_project_key)){
+                $sSelectOptions .= '<optgroup label="typeset.sh">
+                                        <option value="typeset0.16.3" '. (($magazine_rendering_tool == 'typeset0.16.3') ? 'selected="selected"' : '') .'>Version 0.16.3</option>
+                                        <option value="typeset0.16.0" '. (($magazine_rendering_tool == 'typeset0.16.0') ? 'selected="selected"' : '') .'>Version 0.16.0</option>
+                                        <option value="typeset0.15.0" '. (($magazine_rendering_tool == 'typeset0.15.0') ? 'selected="selected"' : '') .'>Version 0.15.0</option>
                                     </optgroup>';
             }
 
@@ -60,11 +73,29 @@
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><label for=""><a href="https://docraptor.com" target="_blank" rel="noopener">DocRaptor</a> API Key</label></th>
+                                <th scope="row"><label for="magazine_docraptor_key"><a href="https://docraptor.com" target="_blank" rel="noopener">DocRaptor</a> API Key</label></th>
                                 <td>
                                     <fieldset>
                                         <legend class="hidden"><a href="https://docraptor.com" target="_blank" rel="noopener">DocRaptor</a> API Key</legend>
                                         <input type="password" name="magazine_docraptor_key" value="'. $magazine_docraptor_key .'" style="width:100%;display:block;" />
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for="magazine_typeset_project_key"><a href="https://typeset.sh/" target="_blank" rel="noopener">typeset.sh</a> Project Key</label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden"><a href="https://typeset.sh/" target="_blank" rel="noopener">typeset.sh</a> Project Key</legend>
+                                        <input type="password" name="magazine_typeset_project_key" value="'. $magazine_typeset_project_key .'" style="width:100%;display:block;" />
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for="magazine_typeset_token_key"><a href="https://typeset.sh/" target="_blank" rel="noopener">typeset.sh</a> Project Token</label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden"><a href="https://typeset.sh/" target="_blank" rel="noopener">typeset.sh</a> Project Token</legend>
+                                        <input type="password" name="magazine_typeset_token_key" value="'. $magazine_typeset_token_key .'" style="width:100%;display:block;" />
                                     </fieldset>
                                 </td>
                             </tr>
