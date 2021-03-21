@@ -6,6 +6,7 @@
         update_option("magazine_docraptor_key",         $_POST['magazine_docraptor_key']);
         update_option("magazine_typeset_token_key",     $_POST['magazine_typeset_token_key']);
         update_option("magazine_typeset_project_key",   $_POST['magazine_typeset_project_key']);
+        update_option("magazine_local_command",         $_POST['magazine_local_command']);
     }
 
     add_action('admin_menu', function(){
@@ -14,6 +15,7 @@
         add_option("magazine_docraptor_key",        "");
         add_option("magazine_typeset_token_key",    "");
         add_option("magazine_typeset_project_key",  "");
+        add_option("magazine_local_command",        "");
 
         add_options_page('Magazine', 'Magazine', 9, 'magazine_option_page', function(){
             $magazine_rendering_tool        = get_option('magazine_rendering_tool');
@@ -21,6 +23,7 @@
             $magazine_docraptor_key         = get_option('magazine_docraptor_key');
             $magazine_typeset_token_key     = get_option('magazine_typeset_token_key');
             $magazine_typeset_project_key   = get_option('magazine_typeset_project_key');
+            $magazine_local_command         = get_option('magazine_local_command');
 
             $sSelectOptions          = '';
             if(!empty($magazine_rapidapi_key)){
@@ -43,6 +46,11 @@
                                         <option value="typeset0.16.3" '. (($magazine_rendering_tool == 'typeset0.16.3') ? 'selected="selected"' : '') .'>Version 0.16.3</option>
                                         <option value="typeset0.16.0" '. (($magazine_rendering_tool == 'typeset0.16.0') ? 'selected="selected"' : '') .'>Version 0.16.0</option>
                                         <option value="typeset0.15.0" '. (($magazine_rendering_tool == 'typeset0.15.0') ? 'selected="selected"' : '') .'>Version 0.15.0</option>
+                                    </optgroup>';
+            }
+            if(!empty($magazine_local_command)){
+                $sSelectOptions .= '<optgroup label="Local">
+                                        <option value="local" '. (($magazine_rendering_tool == 'local') ? 'selected="selected"' : '') .'>Local Renderer</option>
                                     </optgroup>';
             }
 
@@ -96,6 +104,15 @@
                                     <fieldset>
                                         <legend class="hidden"><a href="https://typeset.sh/" target="_blank" rel="noopener">typeset.sh</a> Project Token</legend>
                                         <input type="password" name="magazine_typeset_token_key" value="'. $magazine_typeset_token_key .'" style="width:100%;display:block;" />
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for="magazine_local_command">Local Command<br/><i>(using STDIN & STDOUT)</i></label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden">Local Command<br/><i>(using STDIN & STDOUT)</i></legend>
+                                        <input placeholder="/usr/AHFormatterV71_64/run.sh -x 4 -d @STDIN -o @STDOUT" type="text" name="magazine_local_command" value="'. $magazine_local_command .'" style="width:100%;display:block;" />
                                     </fieldset>
                                 </td>
                             </tr>

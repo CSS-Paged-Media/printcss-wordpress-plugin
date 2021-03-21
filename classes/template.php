@@ -186,25 +186,26 @@
                 /* Add ACF Support Start */
                     if(function_exists('get_field_objects')){
                         $fields = get_field_objects($post_id);
-    
-                        foreach($fields as $fieldname => $fieldArray){
-                            $sContentTemp = str_replace(
-                                '{{ACF_' . $fieldname . '}}',
-                                (
-                                    ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
-                                    ?
-                                    $fieldArray['default_value']
-                                    :
+                        if(is_array($fields)){
+                            foreach($fields as $fieldname => $fieldArray){
+                                $sContentTemp = str_replace(
+                                    '{{ACF_' . $fieldname . '}}',
                                     (
-                                        (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                        ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
                                         ?
-                                        $fieldArray['value']['url']
+                                        $fieldArray['default_value']
                                         :
-                                        $fieldArray['value']
-                                    )
-                                ),
-                                $sContentTemp
-                            );
+                                        (
+                                            (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+                                            ?
+                                            $fieldArray['value']['url']
+                                            :
+                                            $fieldArray['value']
+                                        )
+                                    ),
+                                    $sContentTemp
+                                );
+                            }
                         }
                     }
                 /* ADD ACF Support END */

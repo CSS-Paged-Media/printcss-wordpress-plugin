@@ -17,6 +17,7 @@
             $magazine_docraptor_key         = get_option('magazine_docraptor_key');
             $magazine_typeset_token_key     = get_option('magazine_typeset_token_key');
             $magazine_typeset_project_key   = get_option('magazine_typeset_project_key');
+            $magazine_local_command         = get_option('magazine_local_command');
             $sPageOrPost                    = get_post_type(reset($aPostIds));
             
             $sHtmlToRender  = magazine_template::_getHTML($sTheme, 'prefix');
@@ -170,6 +171,48 @@
                     curl_close($curl);
 
                     break;
+                case 'local':
+                    $sCodeToRender = self::_getCompleteCodeToRender(
+                        $sHtmlToRender,
+                        $sCssToRender,
+                        $sJsToRender
+                    );
+                    $descriptorspec = array(
+                        0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+                        1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+                        2 => array("pipe", "a") // stderr is a file to write to
+                    );
+                    $process = proc_open($magazine_local_command, $descriptorspec, $pipes);
+                    $pdfContent = null;
+                    if (is_resource($process)) {
+                        // $pipes now looks like this:
+                        // 0 => writeable handle connected to child stdin
+                        // 1 => readable handle connected to child stdout
+                        // Any error output will be appended to /tmp/error-output.txt
+                    
+                        fwrite($pipes[0], $sCodeToRender);
+                        fclose($pipes[0]);
+                    
+                        $pdfContent = stream_get_contents($pipes[1]);
+                        if($pdfContent == '' || $pdfContent === null){
+                            $pdfContent  = 'Problems with local renderer command';
+                            $http_status = 400;
+                        }else{
+                            $http_status = 200;
+                        }
+
+                        fclose($pipes[1]);
+        
+                        // It is important that you close any pipes before calling
+                        // proc_close in order to avoid a deadlock
+
+                        $return_value = proc_close($process);
+                    }else{
+                        $pdfContent  = 'Problems with local renderer command';
+                        $http_status = 400;
+                    }
+
+                    break;
             }
     
             return [
@@ -210,6 +253,9 @@
                 $sCodeToRender = '<style>' . $sCssToRender . '</style>' . $sHtmlToRender . '<script>' . $sJsToRender . '</script>';
             }
 
+            # Remove ftp:// and file:// links
+            $sCodeToRender = preg_replace('/\b(ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i', '', $sCodeToRender);
+            
             return $sCodeToRender;
         }
     }

@@ -62,7 +62,11 @@
             $redirect_to = add_query_arg( 'magazine_pdf_content_attachment', $attach_id, $redirect_to);
         }else{
             $oError      = json_decode($pdfContent);
-            $redirect_to = add_query_arg( 'magazine_pdf_content_error', $oError->message, $redirect_to);
+            if(json_last_error() === JSON_ERROR_NONE){
+                $redirect_to = add_query_arg( 'magazine_pdf_content_error', $oError->message, $redirect_to);
+            }else{
+                $redirect_to = add_query_arg( 'magazine_pdf_content_error', $pdfContent, $redirect_to);
+            }
         }
 
         return $redirect_to;
