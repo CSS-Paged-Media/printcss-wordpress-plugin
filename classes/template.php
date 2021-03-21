@@ -222,8 +222,8 @@
          */
         public static function _getTemplateNames() : array {
             $aDirectories = [];
-            foreach(glob(WP_CONTENT_DIR . '/magazine_themes/*', GLOB_ONLYDIR) as $dir) {
-                $aDirectories[] = basename($dir);
+            foreach(glob(WP_CONTENT_DIR . '/magazine_themes/*', GLOB_ONLYDIR) as $sDirectory) {
+                $aDirectories[] = basename($sDirectory);
             }
 
             return $aDirectories;
@@ -354,6 +354,75 @@
                 }
             }elseif(file_exists($sSourceFolder)) {
                 copy($sSourceFolder, $sTargetFolder);
+            }
+        }
+
+        /**
+         * This Method is used to download one theme as a ZIP file.
+         * 
+         * @param string $sTheme            The name of the theme which needs to be downloaded
+         * 
+         * @return void
+         */
+        public static function _download(string $sTheme) : void {
+            $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/';
+
+            if(is_dir($sMagazineThemePath)){
+                $oZip = new ZipArchive();
+                $sFile = tempnam("tmp", "zip");
+
+                if ($oZip->open($sFile, ZipArchive::OVERWRITE)!==TRUE) {
+                    exit("cannot open <$sFile>\n");
+                }
+
+                // Create zip
+                self::_createZip($oZip, $sMagazineThemePath);
+
+                $oZip->close();
+
+                header('Content-Type: application/zip');
+                header('Content-Length: ' . filesize($sFile));
+                header('Content-Disposition: attachment; filename="magazine.theme.' . $sTheme . '.zip"');
+                readfile($sFile);
+                unlink($sFile);
+                exit;
+            }
+        }
+
+        /**
+         * This Method is used to create the actual ZIP for the download method.
+         * 
+         * @param object $oZip              The ZipArchive object
+         * @param string $sDirectory        The current folder to be zipped.
+         * 
+         * @return void
+         */
+        public static function _createZip(ZipArchive $oZip, string $sDirectory) : void {
+            $sRelativeFolder = str_replace(
+                ABSPATH . 'wp-content/magazine_themes/',
+                '',
+                $sDirectory
+            );
+            
+            if (is_dir($sDirectory)){
+                if ($dh = opendir($sDirectory)){
+                    while (($file = readdir($dh)) !== false){
+                        if (is_file($sDirectory.$file)) {
+                            if($file != '' && $file != '.' && $file != '..'){
+                                $oZip->addFile($sDirectory.$file, $sRelativeFolder.$file);
+                            }
+                        }else{
+                            if(is_dir($sDirectory.$file) ){
+                                if($file != '' && $file != '.' && $file != '..'){
+                                    $oZip->addEmptyDir($sRelativeFolder.$file);
+                                    $folder = $sDirectory.$file.'/';
+                                    self::_createZip($oZip,$folder);
+                                }
+                            }
+                        }
+                    }
+                    closedir($dh);
+                }
             }
         }
     }

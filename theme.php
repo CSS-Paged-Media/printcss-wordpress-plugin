@@ -5,6 +5,14 @@
         $_SESSION['magazine_theme_to_edit'] = $_POST['magazine_theme_selection'];
     }
 
+    if('magazine_download_theme' === $_POST['action']){
+        $sSelectedTheme = $_SESSION['magazine_theme_to_edit'];
+
+        if(isset($sSelectedTheme)){
+            magazine_template::_download($sSelectedTheme);
+        }
+    }
+
     if ('magazine_edit_theme' === $_POST['action']){
         $sSelectedTheme = $_SESSION['magazine_theme_to_edit'];
 
@@ -90,6 +98,12 @@
                         </tr>
                     </table>
                     <input name="action" value="magazine_select_theme" type="hidden" />
+                </form>
+                <form name="magazine_theme_download_form" method="post">
+                    <input name="action" value="magazine_download_theme" type="hidden" />
+                    <p class="submit">
+                        <input type="submit" name="Submit" class="button-primary button-magazine" value="Download Theme ' . $sSelectedTheme . '" />
+                    </p>
                 </form>
                 <h1>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
