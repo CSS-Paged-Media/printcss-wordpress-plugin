@@ -13,6 +13,10 @@
         }
     }
 
+    if('magazine_upload_theme' === $_POST['action']){
+        magazine_template::_upload($_FILES);
+    }
+
     if ('magazine_edit_theme' === $_POST['action']){
         $sSelectedTheme = $_SESSION['magazine_theme_to_edit'];
 
@@ -208,6 +212,29 @@
                         <input type="submit" name="Submit" class="button-primary button-magazine" value="Duplicate Theme ' . $sSelectedTheme . '" />
                     </p>
                     <input name="action" value="magazine_duplicate_theme" type="hidden" />
+                </form>
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    Upload Theme
+                </h1>
+                <form name="magazine_theme_upload_form" method="post" enctype="multipart/form-data">
+                    <table class="form-table">
+                        <tr valign="top">
+                            <th scope="row">Theme ZIP File</th>
+                            <td>
+                                <fieldset>
+                                    <legend class="hidden">Theme ZIP File</legend>
+                                    <input type="file" accept="application/zip" name="file" style="width:100%;display:block;" />
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                    <input name="action" value="magazine_upload_theme" type="hidden" />
+                    <p class="submit">
+                        <input type="submit" name="Submit" class="button-primary button-magazine" value="Upload New Theme" />
+                    </p>
                 </form>
             </div>
             <script src="' . plugin_dir_url( __DIR__ ). '/magazine/javascript/jquery.js"></script>

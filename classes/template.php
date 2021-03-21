@@ -425,4 +425,27 @@
                 }
             }
         }
+
+        /**
+         * This Method is used to upload a new theme and unzip it.
+         * 
+         * @param $aFiles       The $_FILES array of the submitted form
+         * 
+         * @return void
+         */
+        public static function _upload(array $aFiles) : void{
+            $sUploadedFile = tempnam("tmp", "zipuploaded");
+
+            if (!function_exists('WP_Filesystem')) {
+                include_once ABSPATH . 'wp-admin/includes/file.php';
+            }
+        
+            WP_Filesystem();
+
+            if (move_uploaded_file($aFiles['file']['tmp_name'], $sUploadedFile)) {
+                unzip_file($sUploadedFile, ABSPATH . 'wp-content/magazine_themes/');
+            }
+
+            unlink($sUploadedFile);
+        }
     }
