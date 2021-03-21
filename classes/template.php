@@ -372,7 +372,10 @@
                 $sFile = tempnam("tmp", "zip");
 
                 if ($oZip->open($sFile, ZipArchive::OVERWRITE)!==TRUE) {
-                    exit("cannot open <$sFile>\n");
+                    add_action('admin_notices', function(){
+                        print('<div id="message" class="error fade"><p>Theme Download not possible</p></div>');
+                    });
+                    return;
                 }
 
                 // Create zip
@@ -434,6 +437,17 @@
          * @return void
          */
         public static function _upload(array $aFiles) : void{
+            $file_name       = $aFiles["file"]["name"];
+            $file_name_arr   = explode('.', $file_name);
+            $extension       = array_pop($file_name_arr);
+
+            if ('zip' !== $extension) {
+                add_action('admin_notices', function(){
+                    print('<div id="message" class="error fade"><p>Theme File does not seem to be a ZIP file.</p></div>');
+                });
+                return;
+            }
+
             $sUploadedFile = tempnam("tmp", "zipuploaded");
 
             if (!function_exists('WP_Filesystem')) {
@@ -444,8 +458,17 @@
 
             if (move_uploaded_file($aFiles['file']['tmp_name'], $sUploadedFile)) {
                 unzip_file($sUploadedFile, ABSPATH . 'wp-content/magazine_themes/');
+            }else{
+                add_action('admin_notices', function(){
+                    print('<div id="message" class="error fade"><p>Theme Upload not possible</p></div>');
+                });
+                return;
             }
 
             unlink($sUploadedFile);
+
+            add_action('admin_notices', function(){
+                print('<div id="message" class="updated fade"><p>Theme Upload Successful</p></div>');
+            });
         }
     }
