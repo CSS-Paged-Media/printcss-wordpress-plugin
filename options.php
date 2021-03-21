@@ -3,15 +3,35 @@
     if ('magazin_update_options' === $_POST['action']){
         update_option("magazine_rendering_tool", $_POST['magazine_rendering_tool']);
         update_option("magazine_rapidapi_key",   $_POST['magazine_rapidapi_key']);
+        update_option("magazine_docraptor_key",   $_POST['magazine_docraptor_key']);
     }
 
     add_action('admin_menu', function(){
         add_option("magazine_rendering_tool",   "weasyprint");
         add_option("magazine_rapidapi_key",     "");
+        add_option("magazine_docraptor_key",    "");
 
         add_options_page('Magazine', 'Magazine', 9, 'magazine_option_page', function(){
             $magazine_rendering_tool = get_option('magazine_rendering_tool');
             $magazine_rapidapi_key   = get_option('magazine_rapidapi_key');
+            $magazine_docraptor_key  = get_option('magazine_docraptor_key');
+
+            $sSelectOptions          = '';
+            if(!empty($magazine_rapidapi_key)){
+                $sSelectOptions .= '<optgroup label="PrintCSS Cloud">
+                                        <option value="weasyprint" '. (($magazine_rendering_tool == 'weasyprint') ? 'selected="selected"' : '') .'>WeasyPrint</option>
+                                        <option value="pagedjs" '. (($magazine_rendering_tool == 'pagedjs') ? 'selected="selected"' : '') .'>PagedJS</option>
+                                        <option value="vivliostyle" '. (($magazine_rendering_tool == 'vivliostyle') ? 'selected="selected"' : '') .'>Vivliostyle</option>
+                                    </optgroup>';
+            }
+            if(!empty($magazine_docraptor_key)){
+                $sSelectOptions .= '<optgroup label="DocRaptor">
+                                        <option value="prince14" '. (($magazine_rendering_tool == 'prince14') ? 'selected="selected"' : '') .'>Prince 14</option>
+                                        <option value="prince13" '. (($magazine_rendering_tool == 'prince13') ? 'selected="selected"' : '') .'>Prince 13</option>
+                                        <option value="prince12" '. (($magazine_rendering_tool == 'prince12') ? 'selected="selected"' : '') .'>Prince 12</option>
+                                        <option value="prince11" '. (($magazine_rendering_tool == 'prince11') ? 'selected="selected"' : '') .'>Prince 11</option>
+                                    </optgroup>';
+            }
 
             echo '<div class="wrap wrap-magazine">
                     <h1>
@@ -25,19 +45,26 @@
                                     <fieldset>
                                         <legend class="hidden">Rendering Tool</legend>
                                         <select name="magazine_rendering_tool" style="width:100%;display:block;">
-                                            <option value="weasyprint" '. (($magazine_rendering_tool == 'weasyprint') ? 'selected="selected"' : '') .'>WeasyPrint</option>
-                                            <option value="pagedjs" '. (($magazine_rendering_tool == 'pagedjs') ? 'selected="selected"' : '') .'>PagedJS</option>
-                                            <option value="vivliostyle" '. (($magazine_rendering_tool == 'vivliostyle') ? 'selected="selected"' : '') .'>Vivliostyle</option>
+                                            ' . $sSelectOptions . '
                                         </select>
                                     </fieldset>
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><label for="magazine_rapidapi_key">RapidAPI Key</label></th>
+                                <th scope="row"><label for="magazine_rapidapi_key"><a href="https://printcss.cloud" target="_blank" rel="noopener">PrintCSS Cloud</a> RapidAPI Key</label></th>
                                 <td>
                                     <fieldset>
-                                        <legend class="hidden">RapidAPI Key</legend>
+                                        <legend class="hidden"><a href="https://printcss.cloud" target="_blank" rel="noopener">PrintCSS Cloud</a> RapidAPI Key</legend>
                                         <input type="password" name="magazine_rapidapi_key" value="'. $magazine_rapidapi_key .'" style="width:100%;display:block;" />
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for=""><a href="https://docraptor.com" target="_blank" rel="noopener">DocRaptor</a> API Key</label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden"><a href="https://docraptor.com" target="_blank" rel="noopener">DocRaptor</a> API Key</legend>
+                                        <input type="password" name="magazine_docraptor_key" value="'. $magazine_docraptor_key .'" style="width:100%;display:block;" />
                                     </fieldset>
                                 </td>
                             </tr>
