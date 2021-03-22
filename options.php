@@ -163,6 +163,9 @@
                                     AH Formatter Example: <samp>/usr/AHFormatterV71_64/run.sh -x 4 -d @STDIN -o @STDOUT</samp>
                                     <br />
                                     Prince Example: <samp>prince --no-warn-css --javascript -</samp>
+                                    <br />
+                                    PDFreactor: <samp>cd /path/to/sh/script/ && ./pdfreactor.sh</samp> 
+                                    (Get the script: <a href="https://gist.github.com/azettl/8546b17bd4880ce44c9b5b2b2ca596a9" target="_blank" rel="noopener">https://gist.github.com/azettl/8546b17bd4880ce44c9b5b2b2ca596a9</a>)
                                 </li>
                               </ul>',
             ));
