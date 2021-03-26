@@ -159,13 +159,21 @@
                                 <li>
                                     <b>Local Command:</b><br />
                                     If you have a PDF rendering tool installed locally, you can provide the command here, be aware that the tool needs to support getting the HTML via STDIN and needs to return the PDF via STDOUT.
-                                    <br />
-                                    AH Formatter Example: <samp>/usr/AHFormatterV71_64/run.sh -x 4 -d @STDIN -o @STDOUT</samp>
-                                    <br />
-                                    Prince Example: <samp>prince --no-warn-css --javascript -</samp>
-                                    <br />
-                                    PDFreactor: <samp>cd /path/to/sh/script/ && ./pdfreactor.sh</samp> 
-                                    (Get the script: <a href="https://gist.github.com/azettl/8546b17bd4880ce44c9b5b2b2ca596a9" target="_blank" rel="noopener">https://gist.github.com/azettl/8546b17bd4880ce44c9b5b2b2ca596a9</a>)
+                                    <ul>
+                                        <li>
+                                            AH Formatter Example:<br />
+                                            <samp>/usr/AHFormatterV71_64/run.sh -x 4 -d @STDIN -o @STDOUT</samp>
+                                        </li>
+                                        <li>
+                                            Prince Example:<br />
+                                            <samp>prince --no-warn-css --javascript -</samp>
+                                        </li>
+                                        <li>
+                                            PDFreactor Example:<br />
+                                            <samp>cd /path/to/sh/script/ && ./pdfreactor.sh</samp> 
+                                            (Get the script <a href="https://gist.github.com/azettl/8546b17bd4880ce44c9b5b2b2ca596a9" target="_blank" rel="noopener">on GitHub</a>)
+                                        </li>
+                                    </ul>
                                 </li>
                               </ul>',
             ));

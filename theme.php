@@ -348,7 +348,7 @@
             ));
     
             $screen->add_help_tab(array(
-                'id' => 'magazine_placeholder_help',
+                'id' => 'magazine_links_help',
                 'title' => 'Helpful PrintCSS Resources',
                 'content' => '<ul>
                                 <li>
