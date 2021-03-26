@@ -26,6 +26,7 @@
     
             $sCssToRender   = magazine_template::_getCSS($sTheme, 'style');
             $sCssToRender  .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getCSS($sTheme, $sPageOrPost));
+            $sCssToRender  .= '.hide_render_link_in_pdf{ display:none !important; }';
     
             $sJsToRender    = magazine_template::_getJS($sTheme, 'script');
             $sJsToRender   .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getJS($sTheme, $sPageOrPost));
