@@ -4,7 +4,7 @@
 * Tags: PDF, HTML to PDF, PrintCSS, WeasyPrint, PagedJS, Vivliostyle, PrintCSS Cloud, RapidAPI
 * Requires at least: 5.7
 * Tested up to: 5.7
-* Version: 0.0.9
+* Version: 0.1.0
 
 Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
 
@@ -19,6 +19,12 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Changelog
 
+- 0.1.0
+    - Add Shortcode
+    - Fix broken Placeholder Help Text
+    - Add PDFreactor sample to Help Text
+    - Change Layout of Options and Theme Page
+    - Update Demo Theme with Front and Back Cover (only updates if you have no Theme available)
 - 0.0.9
     - Add DocRaptor and Typeset.sh APIs and allow local command to render.
 - 0.0.8
