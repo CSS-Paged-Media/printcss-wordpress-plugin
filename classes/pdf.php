@@ -20,9 +20,9 @@
             $magazine_local_command         = get_option('magazine_local_command');
             $sPageOrPost                    = get_post_type(reset($aPostIds));
             
-            $sHtmlToRender  = magazine_template::_getHTML($sTheme, 'prefix');
+            $sHtmlToRender  = magazine_template::_replacePrefixPlaceholders($aPostIds, magazine_template::_getHTML($sTheme, 'prefix'));
             $sHtmlToRender .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getHTML($sTheme, $sPageOrPost));
-            $sHtmlToRender .= magazine_template::_getHTML($sTheme, 'postfix');
+            $sHtmlToRender .= magazine_template::_replacePrefixPlaceholders($aPostIds, magazine_template::_getHTML($sTheme, 'postfix'));
     
             $sCssToRender   = magazine_template::_getCSS($sTheme, 'style');
             $sCssToRender  .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getCSS($sTheme, $sPageOrPost));
