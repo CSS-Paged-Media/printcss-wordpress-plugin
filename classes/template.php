@@ -129,6 +129,35 @@
         }
 
         /**
+         * This method is used to replace the {{NAME}} placeholders in the passed prefix or postfix content.
+         * The placeholders available is {{toc_list}}.
+         * 
+         * @param array $aPostIds   The ids of the posts which need to be used for replacement.
+         * @param string $sContent  The content in which the placeholders need to be replaced.
+         * 
+         * @return string           The content with replaced placeholders.
+         */
+        public static function _replacePrefixPlaceholders(array $aPostIds, string $sContent) : string {
+            $sToCHtml      = '';
+
+            foreach ($aPostIds as $post_id) {
+                $sToCHtml .= '<li><a href="#' . get_post_field('post_name', $post_id) . '">' . get_the_title($post_id) . '</a></li>';
+            }
+            $sToCHtml = '<ul><li>test</li>' . $sToCHtml . '</ul>';
+
+
+            return str_replace(
+                [
+                        '{{toc_list}}'
+                ],
+                [
+                        $sToCHtml
+                ],
+                $sContent
+            );
+        }
+        
+        /**
          * This method is used to replace the {{NAME}} placeholders in the passed content.
          * The placeholders available are {{slug}}, {{title}}, {{feature_image}}, {{content}},
          * {{author}}, {{date}}, {{date_gmt}}, {{excerpt}}, {{status}}, {{year}}, {{month}},
@@ -144,13 +173,6 @@
          */
         public static function _replacePlaceholders(array $aPostIds, string $sContent) : string {
             $sContentFinal = '';
-            $sToCHtml      = '';
-
-            foreach ($aPostIds as $post_id) {
-                $sToCHtml .= '<li><a href="#' . get_post_field('post_name', $post_id) . '">' . get_the_title($post_id) . '</a></li>';
-            }
-            $sToCHtml = '<ul>' . $sToCHtml . '</ul>';
-
     
             foreach ($aPostIds as $post_id) {
                 $sContentTemp = '';
@@ -170,7 +192,6 @@
                         '{{title}}',
                         '{{content}}',
                         '{{categories}}',
-                        '{{toc_list}}',
                         '{{feature_image}}',
                         '{{slug}}',
                         '{{author}}',
@@ -188,7 +209,6 @@
                         get_the_title($post_id),
                         apply_filters('the_content', get_post_field('post_content', $post_id)),
                         $sCategories,
-                        $sToCHtml,
                         (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
                         get_post_field('post_name', $post_id),
                         get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
