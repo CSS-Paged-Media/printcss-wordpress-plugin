@@ -147,10 +147,22 @@
     
             foreach ($aPostIds as $post_id) {
                 $sContentTemp = '';
+
+                $aCategories   = get_the_category($post_id);
+                $sCategories   = '';
+                $sCatSeparator = ' ';
+                if (!empty($aCategories)){
+                    foreach($aCategories as $oCategory){
+                        $sCategories .= esc_html($oCategory->name) . $sCatSeparator;
+                    }
+                    $sCategories = trim($sCategories, $sCatSeparator);
+                }
+
                 $sContentTemp .= str_replace(
                     [
                         '{{title}}',
                         '{{content}}',
+                        '{{categories}}',
                         '{{feature_image}}',
                         '{{slug}}',
                         '{{author}}',
@@ -167,6 +179,7 @@
                     [
                         get_the_title($post_id),
                         apply_filters('the_content', get_post_field('post_content', $post_id)),
+                        $sCategories,
                         (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
                         get_post_field('post_name', $post_id),
                         get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
