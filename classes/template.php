@@ -145,6 +145,80 @@
             }
             $sToCHtml = '<ul>' . $sToCHtml . '</ul>';
 
+            // Add possibility to find posts by ACF fields and show the posts values
+
+                if(function_exists('get_field_objects')){
+                        $sACFPostRegex = '/{{post.ACF_(\w*)=(?=\S*[\'-?])([a-zA-Z\'-]+).(\w*)}}/m';
+                        preg_match_all($sACFPostRegex, $sContent, $sACFPostMatches, PREG_SET_ORDER, 0);
+
+                        foreach($sACFPostMatches as $sACFPostMatch) {
+                                foreach($aPostIds as $post_id) {
+                                        $fields = get_field_objects($post_id);
+                                        if(is_array($fields)){
+                                                foreach($fields as $fieldname => $fieldArray){
+                                                        if($fieldname == $sACFPostMatch[1] && ($fieldArray['value'] == $sACFPostMatch[2] || (is_array($fieldArray['value']) && in_array($sACFPostMatch[2], $fieldArray['value'])))){
+                                                            if($sACFPostMatch[3] == 'title'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_the_title($post_id),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'content'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    apply_filters('the_content', get_post_field('post_content', $post_id)),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'feature_image'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    (has_post_thumbnail($post_id) ? get_the_post_thumbnail($post_id, 'full') : ''),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'slug'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_post_field('post_name', $post_id),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'author'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'date'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_post_field('post_date', $post_id),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'excerpt'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_post_field('post_excerpt', $post_id),
+                                                                                    $sContent
+                                                                    );
+                                                            }else if($sACFPostMatch[3] == 'date_gmt'){
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    get_post_field('post_date_gmt', $post_id),
+                                                                                    $sContent
+                                                                    );
+                                                            }else{
+                                                                    $sContent = str_replace(
+                                                                                    $sACFPostMatch[0],
+                                                                                    'This field can not be requested by the Magazine Plugin right now.',
+                                                                                    $sContent
+                                                                    );
+                                                            }
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+                }
+
 
             return str_replace(
                 [
