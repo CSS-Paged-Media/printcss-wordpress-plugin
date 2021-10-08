@@ -188,6 +188,7 @@
 
     // Add Links to the plugin page entry   
     add_filter('plugin_action_links_magazine/magazine.php', function(array $aLinks){
+        $aLinks[] = '<a href="' . admin_url( 'themes.php?page=magazine_theme_page' ) . '">' . __('Themes') . '</a>';
         $aLinks[] = '<a href="' . admin_url( 'options-general.php?page=magazine_option_page' ) . '">' . __('Settings') . '</a>';
         
         return array_reverse($aLinks);
