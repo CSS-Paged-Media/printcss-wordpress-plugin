@@ -140,6 +140,19 @@
         public static function _replacePrefixPlaceholders(array $aPostIds, string $sContent) : string {
             $sToCHtml      = '';
 
+            /**
+             * The function magazineSortAndFilterPosts can be defined in the functions.php of your 
+             * WordPress installation, you will get passed an array with the post ids which you can
+             * filter or sort. You will need to return an array with the post ids in your method.
+             */
+            if(function_exists('magazineSortAndFilterPosts')){
+                $aPostIds = magazineSortAndFilterPosts($aPostIds);
+
+                if(!is_array($aPostIds)){
+                    $aPostIds = array();
+                }
+            }
+
             foreach ($aPostIds as $post_id) {
                 $sToCHtml .= '<li><a href="#' . get_post_field('post_name', $post_id) . '">' . get_the_title($post_id) . '</a></li>';
             }
@@ -247,6 +260,19 @@
          */
         public static function _replacePlaceholders(array $aPostIds, string $sContent) : string {
             $sContentFinal = '';
+
+            /**
+             * The function magazineSortAndFilterPosts can be defined in the functions.php of your 
+             * WordPress installation, you will get passed an array with the post ids which you can
+             * filter or sort. You will need to return an array with the post ids in your method.
+             */
+            if(function_exists('magazineSortAndFilterPosts')){
+                $aPostIds = magazineSortAndFilterPosts($aPostIds);
+
+                if(!is_array($aPostIds)){
+                    $aPostIds = array();
+                }
+            }
     
             foreach ($aPostIds as $post_id) {
                 $sContentTemp = '';
