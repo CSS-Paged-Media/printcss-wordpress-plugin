@@ -125,7 +125,7 @@
                         </th>
                         <td>
                             <details>
-                                <summary>Prefix <i>prefix.html</i><span></summary>
+                                <summary>Prefix <i>prefix.html</i></summary>
                                 <div class="placeholder-button-wrapper">
                                     <textarea style="display:none;" name="magazine_print_html_prefix" />'. htmlentities($magazine_print_html_prefix) .'</textarea>
                                     <div id="magazine_print_html_prefix">'. htmlentities($magazine_print_html_prefix) .'</div>
@@ -149,7 +149,7 @@
                                 </div>
                             </details>
                             <details>
-                                <summary>Post <i>post.html</i><span></summary>
+                                <summary>Post <i>post.html</i></summary>
                                 <div class="placeholder-button-wrapper">
                                     <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
                                     <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
@@ -178,7 +178,7 @@
                                 </div>
                             </details>
                             <details>
-                                <summary>Page <i>page.html</i><span></summary>
+                                <summary>Page <i>page.html</i></summary>
                                 <div class="placeholder-button-wrapper">
                                     <textarea style="display:none;" name="magazine_print_html_page" />'. htmlentities($magazine_print_html_page) .'</textarea>
                                     <div id="magazine_print_html_page">'. htmlentities($magazine_print_html_page) .'</div>
@@ -207,7 +207,7 @@
                                 </div>
                             </details>
                             <details>
-                                <summary>Postfix <i>postfix.html</i><span></summary>
+                                <summary>Postfix <i>postfix.html</i></summary>
                                 <div class="placeholder-button-wrapper">
                                     <textarea style="display:none;" name="magazine_print_html_postfix" />'. htmlentities($magazine_print_html_postfix) .'</textarea>
                                     <div id="magazine_print_html_postfix">'. htmlentities($magazine_print_html_postfix) .'</div>
@@ -241,14 +241,32 @@
                                     <div id="magazine_print_css_main">'. $magazine_print_css_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.css</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                    <textarea style="display:none;" name="magazine_print_css_post" />'. $magazine_print_css_post .'</textarea>
-                                    <div id="magazine_print_css_post">'. $magazine_print_css_post .'</div>
+                                    <summary>Post <i>post.css</i></summary>
+                                    <div class="placeholder-button-wrapper">
+                                        <textarea style="display:none;" name="magazine_print_css_post" />'. $magazine_print_css_post .'</textarea>
+                                        <div id="magazine_print_css_post">'. $magazine_print_css_post .'</div>
+                                        <div class="placeholder-buttons">
+                                            <h4>Placeholders:</h4>
+                                            <ul>
+                                                <li onclick="cssPostEditor.insert(\'{{slug}}\');">Slug</li>
+                                                <li onclick="cssPostEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </details>
                                 <details>
-                                    <summary>Page <i>page.css</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                    <textarea style="display:none;" name="magazine_print_css_page" />'. $magazine_print_css_page .'</textarea>
-                                    <div id="magazine_print_css_page">'. $magazine_print_css_page .'</div>
+                                    <summary>Page <i>page.css</i></summary>
+                                    <div class="placeholder-button-wrapper">
+                                        <textarea style="display:none;" name="magazine_print_css_page" />'. $magazine_print_css_page .'</textarea>
+                                        <div id="magazine_print_css_page">'. $magazine_print_css_page .'</div>
+                                        <div class="placeholder-buttons">
+                                            <h4>Placeholders:</h4>
+                                            <ul>
+                                                <li onclick="cssPageEditor.insert(\'{{slug}}\');">Slug</li>
+                                                <li onclick="cssPageEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </details>
                             </td>
                         </tr>
@@ -261,14 +279,32 @@
                                     <div id="magazine_print_js_main">'. $magazine_print_js_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.js</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                    <textarea style="display:none;" name="magazine_print_js_post" />'. $magazine_print_js_post .'</textarea>
-                                    <div id="magazine_print_js_post">'. $magazine_print_js_post .'</div>
+                                    <summary>Post <i>post.js</i></summary>
+                                    <div class="placeholder-button-wrapper">
+                                        <textarea style="display:none;" name="magazine_print_js_post" />'. $magazine_print_js_post .'</textarea>
+                                        <div id="magazine_print_js_post">'. $magazine_print_js_post .'</div>
+                                        <div class="placeholder-buttons">
+                                            <h4>Placeholders:</h4>
+                                            <ul>
+                                                <li onclick="jsPostEditor.insert(\'{{slug}}\');">Slug</li>
+                                                <li onclick="jsPostEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </details>
                                 <details>
-                                    <summary>Page <i>page.js</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                    <textarea style="display:none;" name="magazine_print_js_page" />'. $magazine_print_js_page .'</textarea>
-                                    <div id="magazine_print_js_page">'. $magazine_print_js_page .'</div>
+                                    <summary>Page <i>page.js</i></summary>
+                                    <div class="placeholder-button-wrapper">
+                                        <textarea style="display:none;" name="magazine_print_js_page" />'. $magazine_print_js_page .'</textarea>
+                                        <div id="magazine_print_js_page">'. $magazine_print_js_page .'</div>
+                                        <div class="placeholder-buttons">
+                                            <h4>Placeholders:</h4>
+                                            <ul>
+                                                <li onclick="jsPageEditor.insert(\'{{slug}}\');">Slug</li>
+                                                <li onclick="jsPageEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </details>
                             </td>
                         </tr>
