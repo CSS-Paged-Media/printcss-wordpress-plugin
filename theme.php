@@ -340,11 +340,17 @@
             $screen->add_help_tab(array(
                 'id' => 'magazine_placeholder_help',
                 'title' => 'Placeholder',
-                'content' => '<p>The placeholders <i>{{slug}}</i>, <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page slug, title, feature image and content. Additionally you can use the placeholders <i>{{author}}</i>, <i>{{date}}</i>, <i>{{date_gmt}}</i>, <i>{{excerpt}}</i>, <i>{{status}}</i>. If you need to show the date of the post/page in a different format you can use the placeholders <i>{{year}}</i>, <i>{{month}}</i>, <i>{{day}}</i>, <i>{{hour}}</i>, <i>{{minute}}</i>.</p>
+                'content' => '  <p><b>Placeholders for Post and Page Files:</b></p>
+                                <p>The placeholders <i>{{slug}}</i>, <i>{{title}}</i>, <i>{{feature_image}}</i> and <i>{{content}}</i> are for the post/page slug, title, feature image and content. Additionally you can use the placeholders <i>{{author}}</i>, <i>{{date}}</i>, <i>{{date_gmt}}</i>, <i>{{excerpt}}</i>, <i>{{status}}</i>, <i>{{category_slugs}}</i>, and <i>{{categories}}</i>. If you need to show the date of the post/page in a different format you can use the placeholders <i>{{year}}</i>, <i>{{month}}</i>, <i>{{day}}</i>, <i>{{hour}}</i>, <i>{{minute}}</i>.</p>
 
                                 <p>Please be aware that images need to be available via a public URL for the API to use them.</p>
                                 
-                                <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. Important: use the name, not the label!</p>',
+                                <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. Important: use the name, not the label!</p>
+                                
+                                <p><b>Placeholders for Prefix and Postfix Files:</b></p>
+                                <p>To generate a table of contents you can use the placeholder <i>{{toc_list}}</i> and to access fields from pages/posts which where selected to be rendered you can use placeholders like <i>{{post.ACF_acf_fieldname=value.feature_image}}</i>
+                                this way you get the content of the feature image field for the first post/page which has "value" in the ACF field "acf_fieldname".</p>
+                                ',
             ));
     
             $screen->add_help_tab(array(
