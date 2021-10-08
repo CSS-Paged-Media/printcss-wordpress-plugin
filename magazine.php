@@ -19,3 +19,4 @@ require_once __DIR__ . '/options.php';
 require_once __DIR__ . '/theme.php';
 require_once __DIR__ . '/widget.php';
 require_once __DIR__ . '/shortcode.php';
+require_once __DIR__ . '/rest.php';
