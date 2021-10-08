@@ -125,24 +125,110 @@
                         </th>
                         <td>
                             <details>
-                                <summary>Prefix <i>prefix.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
-                                <textarea style="display:none;" name="magazine_print_html_prefix" />'. htmlentities($magazine_print_html_prefix) .'</textarea>
-                                <div id="magazine_print_html_prefix">'. htmlentities($magazine_print_html_prefix) .'</div>
+                                <summary>Prefix <i>prefix.html</i><span></summary>
+                                <div class="placeholder-button-wrapper">
+                                    <textarea style="display:none;" name="magazine_print_html_prefix" />'. htmlentities($magazine_print_html_prefix) .'</textarea>
+                                    <div id="magazine_print_html_prefix">'. htmlentities($magazine_print_html_prefix) .'</div>
+                                    <div class="placeholder-buttons">
+                                        <h4>Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{toc_list}}\');">Table of Contents</li>
+                                        </ul>
+                                        <h4>ACF Conditional Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.slug}}\');">Slug</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.title}}\');">Title</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.excerpt}}\');">Excerpt</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.feature_image}}\');">Feature Image</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.content}}\');">Content</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.author}}\');">Author</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.date}}\');">Date</li>
+                                            <li onclick="htmlPrefixEditor.insert(\'{{post.ACF_fieldName=fieldValue.date_gmt}}\');">Date GMT</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </details>
                             <details>
-                                <summary>Post <i>post.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
-                                <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
+                                <summary>Post <i>post.html</i><span></summary>
+                                <div class="placeholder-button-wrapper">
+                                    <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
+                                    <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
+                                    <div class="placeholder-buttons">
+                                        <h4>Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPostEditor.insert(\'{{slug}}\');">Slug</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{title}}\');">Title</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{excerpt}}\');">Excerpt</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{feature_image}}\');">Feature Image</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{content}}\');">Content</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{author}}\');">Author</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{status}}\');">Status</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{categories}}\');">Categories</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{date}}\');">Date</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{date_gmt}}\');">Date GMT</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{year}}\');">Year</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{month}}\');">Month</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{day}}\');">Day</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{hour}}\');">Hour</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{minute}}\');">Minute</li>
+                                            <li onclick="htmlPostEditor.insert(\'{{ACF_fieldName}}\');">ACF Field</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </details>
                             <details>
-                                <summary>Page <i>page.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Placeholders</span></summary>
-                                <textarea style="display:none;" name="magazine_print_html_page" />'. htmlentities($magazine_print_html_page) .'</textarea>
-                                <div id="magazine_print_html_page">'. htmlentities($magazine_print_html_page) .'</div>
+                                <summary>Page <i>page.html</i><span></summary>
+                                <div class="placeholder-button-wrapper">
+                                    <textarea style="display:none;" name="magazine_print_html_page" />'. htmlentities($magazine_print_html_page) .'</textarea>
+                                    <div id="magazine_print_html_page">'. htmlentities($magazine_print_html_page) .'</div>
+                                    <div class="placeholder-buttons">
+                                        <h4>Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPageEditor.insert(\'{{slug}}\');">Slug</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{title}}\');">Title</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{excerpt}}\');">Excerpt</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{feature_image}}\');">Feature Image</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{content}}\');">Content</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{author}}\');">Author</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{status}}\');">Status</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{categories}}\');">Categories</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{category_slugs}}\');">Category Slugs</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{date}}\');">Date</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{date_gmt}}\');">Date GMT</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{year}}\');">Year</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{month}}\');">Month</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{day}}\');">Day</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{hour}}\');">Hour</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{minute}}\');">Minute</li>
+                                            <li onclick="htmlPageEditor.insert(\'{{ACF_put_the_field_name_here}}\');">ACF Field</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </details>
                             <details>
-                                <summary>Postfix <i>postfix.html</i><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> Placeholders</span></summary>
-                                <textarea style="display:none;" name="magazine_print_html_postfix" />'. htmlentities($magazine_print_html_postfix) .'</textarea>
-                                <div id="magazine_print_html_postfix">'. htmlentities($magazine_print_html_postfix) .'</div>
+                                <summary>Postfix <i>postfix.html</i><span></summary>
+                                <div class="placeholder-button-wrapper">
+                                    <textarea style="display:none;" name="magazine_print_html_postfix" />'. htmlentities($magazine_print_html_postfix) .'</textarea>
+                                    <div id="magazine_print_html_postfix">'. htmlentities($magazine_print_html_postfix) .'</div>
+                                    <div class="placeholder-buttons">
+                                        <h4>Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{toc_list}}\');">Table of Contents</li>
+                                        </ul>
+                                        <h4>ACF Conditional Placeholders:</h4>
+                                        <ul>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.slug}}\');">Slug</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.title}}\');">Title</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.excerpt}}\');">Excerpt</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.feature_image}}\');">Feature Image</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.content}}\');">Content</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.author}}\');">Author</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.date}}\');">Date</li>
+                                            <li onclick="htmlPostFixEditor.insert(\'{{post.ACF_fieldName=fieldValue.date_gmt}}\');">Date GMT</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </details>
                         </td>
                         </tr>

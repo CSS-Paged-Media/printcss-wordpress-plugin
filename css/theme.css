@@ -8,7 +8,7 @@
 #magazine_print_js_main, 
 #magazine_print_js_post, 
 #magazine_print_js_page{
-    height: 400px;
+    min-height: 400px;
     width: 100%;
     font-size: 14px;
     border-bottom: 2px solid lightseagreen;
@@ -125,4 +125,25 @@
 .wrap-magazine .button-magazine:active{
     background: #007D76 !important;
     border-color: #007D76 !important;
+}
+
+.wrap-magazine .placeholder-button-wrapper{
+    display: flex;
+}
+
+.wrap-magazine .placeholder-buttons{
+    padding: 8px;
+    min-width:120px;
+}
+
+.wrap-magazine .placeholder-buttons h4{
+    margin: 0;
+}
+
+.wrap-magazine .placeholder-buttons li{
+    cursor: pointer;
+}
+
+.wrap-magazine .placeholder-buttons li:hover{
+    font-weight: bold;
 }
