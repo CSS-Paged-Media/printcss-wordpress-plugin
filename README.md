@@ -1,6 +1,6 @@
 # Magazine
 
-* Download Link: https://gumroad.com/l/wp-magazine-printcss-cloud
+* Download Link: https://wordpresstopdf.com/
 * Tags: PDF, HTML to PDF, PrintCSS, WeasyPrint, PagedJS, Vivliostyle, PrintCSS Cloud, RapidAPI
 * Requires at least: 5.7
 * Tested up to: 5.7
