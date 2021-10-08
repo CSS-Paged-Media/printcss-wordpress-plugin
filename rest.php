@@ -6,20 +6,30 @@ add_action( 'rest_api_init', function () {
     'callback' => 'renderPDFForRest',
     'permission_callback' => function () {
       return is_user_logged_in();
-    }
+    },
+    'args' => array(
+        'ids' => array(
+          'required' => true,
+          'validate_callback' => function($param, $request, $key) {
+            return isset($param) && is_array($param);
+          },
+          'type' => 'array',
+          'description' => 'An array of Post IDs.'
+        ),
+        'theme' => array(
+          'required' => true,
+          'validate_callback' => function($param, $request, $key) {
+            return isset($param) && trim($param) != '';
+          },
+          'type' => 'string',
+          'description' => 'The Theme name as string.'
+        ),
+    )
   ) );
 } );
 
 function renderPDFForRest( WP_REST_Request $request ) {
     $aParameters = $request->get_params();
-
-    if(!isset($aParameters['theme']) || trim($aParameters['theme']) == ''){
-        return new WP_Error( 'no_theme', 'Invalid Theme', array( 'status' => 404 ) );
-    }
-
-    if(!isset($aParameters['ids']) || !is_array($aParameters['ids'])){
-        return new WP_Error( 'no_ids', 'Invalid Post IDs', array( 'status' => 404 ) );
-    }
    
     $aRenderResult = magazine_pdf::_renderPDF($aParameters['ids'], $aParameters['theme']);
     $http_status   = $aRenderResult['status_code'];
