@@ -4,7 +4,7 @@
 * Tags: PDF, HTML to PDF, PrintCSS, WeasyPrint, PagedJS, Vivliostyle, PrintCSS Cloud, RapidAPI
 * Requires at least: 5.7
 * Tested up to: 5.7
-* Version: 0.1.0
+* Version: 0.1.1
 
 Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
 
@@ -19,6 +19,13 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Changelog
 
+- 0.1.1
+    - Add new Placeholders for Posts and Pages ({{categories}}, {{category_slugs}})
+    - Add Placeholders for Prefix and Postfix HTML ({{toc_list}})
+    - Add ACF Conditional Placeholders for Prefix and Postfix HTML (example: {{post.ACF_fieldName=fieldValue.title}})
+    - Update Help Text with new Placeholders 
+    - Add Placeholder Buttons next to the Theme Editors
+    - add magazineSortAndFilterPosts for functions.php (The function magazineSortAndFilterPosts can be defined in the functions.php of your WordPress installation. You will get passed an array with the post ids, which you can filter or sort. You will need to return an array with the post ids in your method.)
 - 0.1.0
     - Add Shortcode
     - Fix broken Placeholder Help Text
