@@ -149,7 +149,7 @@
                                 </div>
                             </details>
                             <details>
-                                <summary>Post <i>post.html</i></summary>
+                                <summary>Post (&amp; Custom Post Types) <i>post.html</i></summary>
                                 <div class="placeholder-button-wrapper">
                                     <textarea style="display:none;" name="magazine_print_html_post" />'. htmlentities($magazine_print_html_post) .'</textarea>
                                     <div id="magazine_print_html_post">'. htmlentities($magazine_print_html_post) .'</div>
@@ -241,7 +241,7 @@
                                     <div id="magazine_print_css_main">'. $magazine_print_css_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.css</i></summary>
+                                    <summary>Post (&amp; Custom Post Types) <i>post.css</i></summary>
                                     <div class="placeholder-button-wrapper">
                                         <textarea style="display:none;" name="magazine_print_css_post" />'. $magazine_print_css_post .'</textarea>
                                         <div id="magazine_print_css_post">'. $magazine_print_css_post .'</div>
@@ -279,7 +279,7 @@
                                     <div id="magazine_print_js_main">'. $magazine_print_js_main .'</div>
                                 </details>
                                 <details>
-                                    <summary>Post <i>post.js</i></summary>
+                                    <summary>Post (&amp; Custom Post Types) <i>post.js</i></summary>
                                     <div class="placeholder-button-wrapper">
                                         <textarea style="display:none;" name="magazine_print_js_post" />'. $magazine_print_js_post .'</textarea>
                                         <div id="magazine_print_js_post">'. $magazine_print_js_post .'</div>
@@ -403,7 +403,7 @@
                                 </li>
                                 <li>
                                     <b>Post (post.html)</b><br/>
-                                    The post HTML will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this HTML gets repeated five times. Within the post HTML, you can use any placeholders, for example, the <i>{{title}}</i> to always show the current Blogpost title.
+                                    The post HTML will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this HTML gets repeated five times. Within the post HTML, you can use any placeholders, for example, the <i>{{title}}</i> to always show the current Blogpost title. This file also gets loaded if you render a PDF for any custom post type.
                                 </li>
                                 <li>
                                     <b>Page (page.html)</b><br/>
@@ -428,7 +428,7 @@
                             </li>
                             <li>
                                 <b>Post (post.css)</b><br/>
-                                The post CSS will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this CSS gets repeated five times. Within the post CSS, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug.
+                                The post CSS will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this CSS gets repeated five times. Within the post CSS, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug. This file also gets loaded if you render a PDF for any custom post type.
                             </li>
                             <li>
                                 <b>Page (page.css)</b><br/>
@@ -450,7 +450,7 @@
                             </li>
                             <li>
                                 <b>Post (post.js)</b><br/>
-                                The post JavaScript will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this JavaScript gets repeated five times. Within the post JavaScript, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug.
+                                The post JavaScript will be loaded whenever you want to render a Blogpost PDF; this file gets added once per selected Blogpost. So if you choose 5 Blogposts, this JavaScript gets repeated five times. Within the post JavaScript, you can use any placeholders, for example, the <i>{{slug}}</i> to get one class per Blogpost slug. This file also gets loaded if you render a PDF for any custom post type.
                             </li>
                             <li>
                                 <b>Page (page.js)</b><br/>
