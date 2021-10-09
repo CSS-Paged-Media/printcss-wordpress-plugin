@@ -31,6 +31,12 @@ add_action( 'rest_api_init', function () {
 function renderPDFForRest( WP_REST_Request $request ) {
     $aParameters = $request->get_params();
    
+    $aThemes = magazine_template::_getTemplateNames();
+
+    if(!in_array($aParameters['theme'], $aThemes)){
+        return new WP_Error( 'theme_not_found', 'Can not find the provided theme name.', array( 'status' => 404 ) );
+    }
+
     $aRenderResult = magazine_pdf::_renderPDF($aParameters['ids'], $aParameters['theme']);
     $http_status   = $aRenderResult['status_code'];
     $pdfContent    = $aRenderResult['content'];
