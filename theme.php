@@ -387,6 +387,7 @@
                                 <li>View Themes</li>
                                 <li>Edit Themes</li>
                                 <li>Duplicate Themes</li>
+                                <li>Upload Themes</li>
                               </ul>
                               <p>Before you start editing a theme, be sure you selected the correct one.</p>',
             ));
@@ -398,7 +399,7 @@
                               <ul>
                                 <li>
                                     <b>Prefix (prefix.html)</b><br/>
-                                    The prefix HTML you can use for front covers or intros, basically anything which should be added only once at the beginning of the PDF. In the prefix, you can not use any placeholders.
+                                    The prefix HTML you can use for front covers or intros, basically anything which should be added only once at the beginning of the PDF. In the prefix, you can only use certain placeholders.
                                 </li>
                                 <li>
                                     <b>Post (post.html)</b><br/>
@@ -410,7 +411,7 @@
                                 </li>
                                 <li>
                                     <b>Postfix (postfix.html)</b><br/>
-                                    The postfix HTML you can use for back covers or indexes, basically anything which should be added only once at the end of the PDF. In the postfix, you can not use any placeholders.
+                                    The postfix HTML you can use for back covers or indexes, basically anything which should be added only once at the end of the PDF. In the postfix, you can only use certain placeholders.
                                 </li>
                               </ul>
                               <p>You can leave any of these HTML files empty if you do not need them. For example, if you do not need a cover, do not put content into the prefix HTML.</p>',
@@ -441,7 +442,7 @@
                 'id' => 'magazine_js_help',
                 'title' => 'JavaScript',
                 'content' => '<p>In the JavaScript section of this screen, you can edit all JavaScript files of your Magazine theme.</p>
-                            <p><b>Be aware that JavaScript is only supported by PagedJS and Vivliostyle.</b></p>
+                            <p><b>Be aware that JavaScript is not supported by all PDF rendering engines, check first before you add JavaScript to your theme.</b></p>
                             <ul>
                             <li>
                                 <b>Main (script.js)</b><br/>
