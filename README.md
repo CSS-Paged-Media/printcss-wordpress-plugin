@@ -4,7 +4,7 @@
 * Tags: PDF, HTML to PDF, PrintCSS, WeasyPrint, PagedJS, Vivliostyle, PrintCSS Cloud, RapidAPI
 * Requires at least: 5.7
 * Tested up to: 5.7
-* Version: 0.1.1
+* Version: 0.1.2
 
 Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
 
@@ -19,6 +19,9 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Changelog
 
+- 0.1.2
+    - Add Rest Endpoint (POST /wp-json/magazine/v1/pdf, Body {"ids": [265, 123], "theme": "Events"})
+    - Add Support for Custom Post Types
 - 0.1.1
     - Add new Placeholders for Posts and Pages ({{categories}}, {{category_slugs}})
     - Add Placeholders for Prefix and Postfix HTML ({{toc_list}})
