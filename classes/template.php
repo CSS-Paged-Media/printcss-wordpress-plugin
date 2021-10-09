@@ -14,6 +14,10 @@
             $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/';
             $sHtml              = '';
 
+            if($sType != 'post' && $sType != 'page' && $sType != 'prefix' && $sType != 'postfix'){
+                $sType = 'post';
+            }
+
             if(is_dir($sMagazineThemePath)){
                 if(is_file($sMagazineThemePath . $sType . '.html')){
                     $sHtml = file_get_contents($sMagazineThemePath . $sType . '.html');
@@ -56,6 +60,10 @@
             $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/css/';
             $sCSS               = '';
 
+            if($sType != 'post' && $sType != 'page' && $sType != 'style'){
+                $sType = 'post';
+            }
+
             if(is_dir($sMagazineThemePath)){
                 if(is_file($sMagazineThemePath . $sType . '.css')){
                     $sCSS = file_get_contents($sMagazineThemePath . $sType . '.css');
@@ -97,6 +105,10 @@
         public static function _getJS(string $sTheme, string $sType) : string {
             $sMagazineThemePath = WP_CONTENT_DIR . '/magazine_themes/' . $sTheme . '/js/';
             $sJS                = '';
+
+            if($sType != 'post' && $sType != 'page' && $sType != 'script'){
+                $sType = 'post';
+            }
 
             if(is_dir($sMagazineThemePath)){
                 if(is_file($sMagazineThemePath . $sType . '.js')){

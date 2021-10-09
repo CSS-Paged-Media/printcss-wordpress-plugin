@@ -1,7 +1,7 @@
 <?php 
 
-    add_filter( 'bulk_actions-edit-post', 'magazine_render_pdf_bulk_actions');
-    add_filter( 'bulk_actions-edit-page', 'magazine_render_pdf_bulk_actions');
+    add_filter('bulk_actions-edit-post', 'magazine_render_pdf_bulk_actions');
+    add_filter('bulk_actions-edit-page', 'magazine_render_pdf_bulk_actions');
     
     function magazine_render_pdf_bulk_actions($bulk_actions) {
         $aThemes = magazine_template::_getTemplateNames();
@@ -83,3 +83,19 @@
                 . $_REQUEST['magazine_pdf_content_error'] .'" generating PDF file.</p></div>');
         }
     });
+
+    // If option to show bulk action on custom post types is on add the filters (add_filter)
+    if(get_option('magazine_show_action_on_custom_post_types') == 1){
+        add_action('wp_loaded', function(){
+            $args = array(
+                'public'   => true,
+                '_builtin' => false,
+             );
+            
+             $post_types = get_post_types( $args ); 
+             foreach ( $post_types  as $post_type ) {
+                add_filter('bulk_actions-edit-' . $post_type, 'magazine_render_pdf_bulk_actions');
+                add_filter('handle_bulk_actions-edit-' . $post_type, 'magazine_render_pdf_bulk_handler', 10, 3);
+             }
+        });
+    }

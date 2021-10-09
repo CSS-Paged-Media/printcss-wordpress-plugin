@@ -1,29 +1,34 @@
 <?php
 
     if ('magazin_update_options' === $_POST['action']){
-        update_option("magazine_rendering_tool",        $_POST['magazine_rendering_tool']);
-        update_option("magazine_rapidapi_key",          $_POST['magazine_rapidapi_key']);
-        update_option("magazine_docraptor_key",         $_POST['magazine_docraptor_key']);
-        update_option("magazine_typeset_token_key",     $_POST['magazine_typeset_token_key']);
-        update_option("magazine_typeset_project_key",   $_POST['magazine_typeset_project_key']);
-        update_option("magazine_local_command",         $_POST['magazine_local_command']);
+        update_option("magazine_rendering_tool",                    $_POST['magazine_rendering_tool']);
+        update_option("magazine_rapidapi_key",                      $_POST['magazine_rapidapi_key']);
+        update_option("magazine_docraptor_key",                     $_POST['magazine_docraptor_key']);
+        update_option("magazine_typeset_token_key",                 $_POST['magazine_typeset_token_key']);
+        update_option("magazine_typeset_project_key",               $_POST['magazine_typeset_project_key']);
+        update_option("magazine_local_command",                     $_POST['magazine_local_command']);
+        update_option("magazine_show_action_on_custom_post_types",  $_POST['magazine_show_action_on_custom_post_types']);
+
+        
     }
 
     add_action('admin_menu', function(){
-        add_option("magazine_rendering_tool",       "weasyprint");
-        add_option("magazine_rapidapi_key",         "");
-        add_option("magazine_docraptor_key",        "");
-        add_option("magazine_typeset_token_key",    "");
-        add_option("magazine_typeset_project_key",  "");
-        add_option("magazine_local_command",        "");
+        add_option("magazine_rendering_tool",                   "weasyprint");
+        add_option("magazine_rapidapi_key",                     "");
+        add_option("magazine_docraptor_key",                    "");
+        add_option("magazine_typeset_token_key",                "");
+        add_option("magazine_typeset_project_key",              "");
+        add_option("magazine_local_command",                    "");
+        add_option("magazine_show_action_on_custom_post_types", 0);
 
         add_options_page('Magazine', 'Magazine', 9, 'magazine_option_page', function(){
-            $magazine_rendering_tool        = get_option('magazine_rendering_tool');
-            $magazine_rapidapi_key          = get_option('magazine_rapidapi_key');
-            $magazine_docraptor_key         = get_option('magazine_docraptor_key');
-            $magazine_typeset_token_key     = get_option('magazine_typeset_token_key');
-            $magazine_typeset_project_key   = get_option('magazine_typeset_project_key');
-            $magazine_local_command         = get_option('magazine_local_command');
+            $magazine_rendering_tool                    = get_option('magazine_rendering_tool');
+            $magazine_rapidapi_key                      = get_option('magazine_rapidapi_key');
+            $magazine_docraptor_key                     = get_option('magazine_docraptor_key');
+            $magazine_typeset_token_key                 = get_option('magazine_typeset_token_key');
+            $magazine_typeset_project_key               = get_option('magazine_typeset_project_key');
+            $magazine_local_command                     = get_option('magazine_local_command');
+            $magazine_show_action_on_custom_post_types  = get_option('magazine_show_action_on_custom_post_types');
 
             $sSelectOptions          = '';
             if(!empty($magazine_rapidapi_key)){
@@ -116,6 +121,15 @@
                                     </fieldset>
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for="magazine_show_action_on_custom_post_types">Show Bulk Action on Custom Post Types</label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden">Show Bulk Action on Custom Post Types</legend>
+                                        <input type="checkbox" name="magazine_show_action_on_custom_post_types" value="1" '. ($magazine_show_action_on_custom_post_types == 1 ? 'checked' : '') .' />
+                                    </fieldset>
+                                </td>
+                            </tr>
                         </table>
                         <p class="submit">
                             <input type="submit" name="Submit" class="button-primary button-magazine" value="Save Changes" />
@@ -184,12 +198,4 @@
                 }
             }
         }
-    });
-
-    // Add Links to the plugin page entry   
-    add_filter('plugin_action_links_magazine/magazine.php', function(array $aLinks){
-        $aLinks[] = '<a href="' . admin_url( 'themes.php?page=magazine_theme_page' ) . '">' . __('Themes') . '</a>';
-        $aLinks[] = '<a href="' . admin_url( 'options-general.php?page=magazine_option_page' ) . '">' . __('Settings') . '</a>';
-        
-        return array_reverse($aLinks);
     });
