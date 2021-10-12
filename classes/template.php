@@ -359,7 +359,13 @@
                                             ?
                                             $fieldArray['value']['url']
                                             :
-                                            $fieldArray['value']
+                                            (
+                                                (is_array($fieldArray['value']) && $fieldArray['type'] == 'select')
+                                                ?
+                                                implode(' ', $fieldArray['value'])
+                                                :
+                                                $fieldArray['value']
+                                            )
                                         )
                                     ),
                                     $sContentTemp
