@@ -75,7 +75,7 @@
     add_action('admin_notices', function(){
         if (!empty($_REQUEST['magazine_pdf_content_attachment'])) {
             print( '<div id="message" class="updated fade"><p>PDF generation done, 
-            <a download href="' . wp_get_attachment_url($_REQUEST['magazine_pdf_content_attachment']) 
+            <a download target="_blank" href="' . wp_get_attachment_url($_REQUEST['magazine_pdf_content_attachment']) 
             . '">download the PDF here</a>.
             </p></div>');
         }else if(!empty($_REQUEST['magazine_pdf_content_error'])){
