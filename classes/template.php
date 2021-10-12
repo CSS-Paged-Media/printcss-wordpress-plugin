@@ -362,7 +362,7 @@
                                             (
                                                 (is_array($fieldArray['value']) && $fieldArray['type'] == 'select')
                                                 ?
-                                                implode(' ', $fieldArray['value'])
+                                                implode(', ', $fieldArray['value'])
                                                 :
                                                 $fieldArray['value']
                                             )
