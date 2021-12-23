@@ -31,6 +31,30 @@
             $sJsToRender    = magazine_template::_getJS($sTheme, 'script');
             $sJsToRender   .= magazine_template::_replacePlaceholders($aPostIds, magazine_template::_getJS($sTheme, $sPageOrPost));
             
+            /**
+             * The function magazineModifyHtml can be defined in the functions.php of your 
+             * WordPress installation, you will get passed an string of the HTML code which you can modify before the PDF gets rendered.
+             */
+            if(function_exists('magazineModifyHtml')){
+                $sHtmlToRender = magazineModifyHtml($sHtmlToRender);
+            }
+
+            /**
+             * The function magazineModifyCss can be defined in the functions.php of your 
+             * WordPress installation, you will get passed an string of the CSS code which you can modify before the PDF gets rendered.
+             */
+            if(function_exists('magazineModifyCss')){
+                $sCssToRender = magazineModifyCss($sCssToRender);
+            }
+
+            /**
+             * The function magazineModifyJavascript can be defined in the functions.php of your 
+             * WordPress installation, you will get passed an string of the Javascript code which you can modify before the PDF gets rendered.
+             */
+            if(function_exists('magazineModifyJavascript')){
+                $sJsToRender = magazineModifyJavascript($sJsToRender);
+            }
+            
             switch($magazine_rendering_tool){
                 case 'weasyprint':
                 case 'pagedjs':
