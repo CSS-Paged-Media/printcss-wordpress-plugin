@@ -30,59 +30,42 @@
         $sTheme = str_replace('magazine_render_pdf_bulk_action_', '', $doaction);
 
         $aRenderResult = magazine_pdf::_renderPDF($post_ids, $sTheme);
-        $http_status   = $aRenderResult['status_code'];
-        $pdfContent    = $aRenderResult['content'];
-
-        if($http_status == 200){
-            $upload_dir = wp_upload_dir();
-            $filename   = 'magazin.' . implode('.', $post_ids) . '-' . date('Y-m-d-H-i-s') . '.pdf';
-
-            if ( wp_mkdir_p( $upload_dir['path'] . '/magazine' ) ) {
-                $file = $upload_dir['path'] . '/magazine/'. $filename;
-            }
-            else {
-                $file = $upload_dir['basedir'] . '/magazine/'. $filename;
-            }
-
-            file_put_contents($file, $pdfContent);
-
-            $wp_filetype = wp_check_filetype($filename, null);
-
-            $attachment = array(
-                'post_mime_type'    => $wp_filetype['type'],
-                'post_title'        => sanitize_file_name($filename),
-                'post_content'      => '',
-                'post_status'       => 'inherit'
-            );
-
-            $attach_id = wp_insert_attachment($attachment, $file);
-            require_once( ABSPATH . 'wp-admin/includes/image.php' );
-            $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-            wp_update_attachment_metadata( $attach_id, $attach_data );
-            $redirect_to = add_query_arg( 'magazine_pdf_content_attachment', $attach_id, $redirect_to);
-        }else{
-            $oError      = json_decode($pdfContent);
-            if(json_last_error() === JSON_ERROR_NONE){
-                $redirect_to = add_query_arg( 'magazine_pdf_content_error', $oError->message, $redirect_to);
-            }else{
-                $redirect_to = add_query_arg( 'magazine_pdf_content_error', $pdfContent, $redirect_to);
-            }
-        }
+		
+		$redirect_to = add_query_arg( 'magazine_pdf_theme', $sTheme, $redirect_to);
+		$redirect_to = add_query_arg( 'magazine_pdf_post_ids', json_encode($post_ids), $redirect_to);
 
         return $redirect_to;
     }
-
-    add_action('admin_notices', function(){
-        if (!empty($_REQUEST['magazine_pdf_content_attachment'])) {
-            print( '<div id="message" class="updated fade"><p>PDF generation done, 
-            <a download target="_blank" href="' . wp_get_attachment_url($_REQUEST['magazine_pdf_content_attachment']) 
-            . '">download the PDF here</a>.
-            </p></div>');
-        }else if(!empty($_REQUEST['magazine_pdf_content_error'])){
-            print( '<div id="message" class="error fade"><p>Error "' 
-                . $_REQUEST['magazine_pdf_content_error'] .'" generating PDF file.</p></div>');
-        }
-    });
+	
+	add_action('in_admin_footer', function(){
+		
+		wp_localize_script(
+			'wp-api', 
+			'wpApiSettings', 
+			array(
+				'root' => esc_url_raw( rest_url() ),
+				'nonce' => wp_create_nonce( 'wp_rest' )
+			)
+		);
+		wp_enqueue_script('wp-api');
+		
+		if (!empty($_REQUEST['magazine_pdf_theme']) && !empty($_REQUEST['magazine_pdf_post_ids'])) {
+			
+			echo '
+				<script src="' . plugin_dir_url( __DIR__ ). '/magazine/javascript/restrequest.js"></script>
+				<script>
+					if(window.jQuery) {
+						jQuery(document).ready(function($) {
+							$(window).load(function() {
+								magazine_post_request(' . $_REQUEST['magazine_pdf_post_ids'] . ', "' . $_REQUEST['magazine_pdf_theme'] . '");
+							});
+						});
+					}
+				</script>
+			';
+		}
+		
+	}, 1);
 
     // If option to show bulk action on custom post types is on add the filters (add_filter)
     if(get_option('magazine_show_action_on_custom_post_types') == 1){
