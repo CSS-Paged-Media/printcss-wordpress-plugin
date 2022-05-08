@@ -347,29 +347,39 @@
                         $fields = get_field_objects($post_id);
                         if(is_array($fields)){
                             foreach($fields as $fieldname => $fieldArray){
-                                $sContentTemp = str_replace(
-                                    '{{ACF_' . $fieldname . '}}',
-                                    (
-                                        ($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
-                                        ?
-                                        $fieldArray['default_value']
-                                        :
-                                        (
-                                            (is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
-                                            ?
-                                            $fieldArray['value']['url']
-                                            :
-                                            (
-                                                (is_array($fieldArray['value']) && $fieldArray['type'] == 'select')
-                                                ?
-                                                implode(', ', $fieldArray['value'])
-                                                :
-                                                $fieldArray['value']
-                                            )
-                                        )
-                                    ),
-                                    $sContentTemp
-                                );
+								if($fieldArray['type'] == 'group'){
+									foreach($fieldArray['value'] as $sGroupKey => $sGroupValue){
+										$sContentTemp = str_replace(
+											'{{ACF_' . $fieldname . '_' . $sGroupKey . '}}',
+											$sGroupValue,
+											$sContentTemp
+										);
+									}
+								}else{
+									$sContentTemp = str_replace(
+										'{{ACF_' . $fieldname . '}}',
+										(
+											($fieldArray['default_value'] != '' && $fieldArray['value'] == '')
+											?
+											$fieldArray['default_value']
+											:
+											(
+												(is_array($fieldArray['value']) && $fieldArray['type'] == 'image')
+												?
+												$fieldArray['value']['url']
+												:
+												(
+													(is_array($fieldArray['value']) && $fieldArray['type'] == 'select')
+													?
+													implode(', ', $fieldArray['value'])
+													:
+													$fieldArray['value']
+												)
+											)
+										),
+										$sContentTemp
+									);
+								}
                             }
                         }
                     }
