@@ -15,6 +15,11 @@ require_once __DIR__ . '/classes/pdf.php';
 
 require_once __DIR__ . '/activate.php';
 require_once __DIR__ . '/bulk_action.php';
+
+if(get_option('magazine_show_button_in_editor') == 1){
+	require_once __DIR__ . '/editor_button.php';
+}
+
 require_once __DIR__ . '/options.php';
 require_once __DIR__ . '/theme.php';
 require_once __DIR__ . '/widget.php';

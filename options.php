@@ -8,8 +8,7 @@
         update_option("magazine_typeset_project_key",               $_POST['magazine_typeset_project_key']);
         update_option("magazine_local_command",                     $_POST['magazine_local_command']);
         update_option("magazine_show_action_on_custom_post_types",  $_POST['magazine_show_action_on_custom_post_types']);
-
-        
+        update_option("magazine_show_button_in_editor",  			$_POST['magazine_show_button_in_editor']);        
     }
 
     add_action('admin_menu', function(){
@@ -20,6 +19,7 @@
         add_option("magazine_typeset_project_key",              "");
         add_option("magazine_local_command",                    "");
         add_option("magazine_show_action_on_custom_post_types", 0);
+        add_option("magazine_show_button_in_editor", 0);
 
         add_options_page('Magazine', 'Magazine', 9, 'magazine_option_page', function(){
             $magazine_rendering_tool                    = get_option('magazine_rendering_tool');
@@ -29,6 +29,7 @@
             $magazine_typeset_project_key               = get_option('magazine_typeset_project_key');
             $magazine_local_command                     = get_option('magazine_local_command');
             $magazine_show_action_on_custom_post_types  = get_option('magazine_show_action_on_custom_post_types');
+            $magazine_show_button_in_editor  			= get_option('magazine_show_button_in_editor');
 
             $sSelectOptions          = '';
             if(!empty($magazine_rapidapi_key)){
@@ -127,6 +128,15 @@
                                     <fieldset>
                                         <legend class="hidden">Show Bulk Action on Custom Post Types</legend>
                                         <input type="checkbox" name="magazine_show_action_on_custom_post_types" value="1" '. ($magazine_show_action_on_custom_post_types == 1 ? 'checked' : '') .' />
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><label for="magazine_show_button_in_editor">Show Render Button in Editors</label></th>
+                                <td>
+                                    <fieldset>
+                                        <legend class="hidden">Show Render Button in Editors</legend>
+                                        <input type="checkbox" name="magazine_show_button_in_editor" value="1" '. ($magazine_show_button_in_editor == 1 ? 'checked' : '') .' />
                                     </fieldset>
                                 </td>
                             </tr>
