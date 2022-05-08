@@ -4,7 +4,7 @@ add_action('admin_print_footer_scripts', function(){
     global $post;
     
 	$screen 		 = get_current_screen();
-    $supported_types = array('page', 'post');
+    $supported_types = get_post_types();
     
 	if(
 		strpos($screen->parent_file, 'edit.php') !== FALSE 
