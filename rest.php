@@ -24,6 +24,11 @@ add_action( 'rest_api_init', function () {
           'type' => 'string',
           'description' => 'The Theme name as string.'
         ),
+        'base64' => array(
+          'required' => false,
+          'type' => 'boolean',
+          'description' => 'Whether to return the PDF as base64 encoded string.'
+        ),
     )
   ) );
 } );
@@ -41,9 +46,13 @@ function renderPDFForRest( WP_REST_Request $request ) {
     $http_status   = $aRenderResult['status_code'];
     $pdfContent    = $aRenderResult['content'];
 
-    if($http_status == 200){
+    if($http_status == 200 && $aParameters['base64'] === false){
         header('Content-Type: application/pdf');
         echo $pdfContent;
+        exit;
+    }else if($http_status == 200 && $aParameters['base64'] === true){
+        header('Content-Type: text/plain');
+        echo base64_encode($pdfContent);
         exit;
     }else{
         return new WP_REST_Response(json_decode($pdfContent), $http_status);

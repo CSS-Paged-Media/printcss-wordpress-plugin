@@ -3,7 +3,7 @@
  * Plugin Name:       Magazine
  * Plugin URI:        https://wordpresstopdf.com/
  * Description:       Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
- * Version:           0.1.2
+ * Version:           0.1.3
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            Andreas Zettl
