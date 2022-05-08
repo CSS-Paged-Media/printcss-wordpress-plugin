@@ -76,7 +76,6 @@ add_action('admin_print_footer_scripts', function(){
 								"base64": true
 							},
 							success: function (data){
-								console.log(data);
 								var blob = b64toBlob(data, "application/pdf");
 								var link=document.createElement("a");
 								var url=window.URL.createObjectURL(blob);
