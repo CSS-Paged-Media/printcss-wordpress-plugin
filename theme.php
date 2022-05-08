@@ -468,7 +468,7 @@
 
                                 <p>Please be aware that images need to be available via a public URL for the API to use them.</p>
                                 
-                                <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. Important: use the name, not the label!</p>
+                                <p>ACF is also supported. Just add <i>{{ACF_YOUR_FIELD_NAME}}</i>. <b>Important:</b> use the name, not the label and start the placeholder with AFC_!</p>
                                 
                                 <p><b>Placeholders for Prefix and Postfix Files:</b></p>
                                 <p>To generate a table of contents you can use the placeholder <i>{{toc_list}}</i> and to access fields from pages/posts which where selected to be rendered you can use placeholders like <i>{{post.ACF_acf_fieldname=value.feature_image}}</i>
@@ -480,6 +480,10 @@
                 'id' => 'magazine_links_help',
                 'title' => 'Helpful PrintCSS Resources',
                 'content' => '<ul>
+                                <li>
+                                    <b>PrintCSS Articles and Samples</b><br />
+                                    <a href="http://printcss.net/" target="_blank" rel="noopener">http://printcss.net/</a>
+                                </li>
                                 <li>
                                     <b>Introduction to PrintCSS and CSS Paged Media</b><br />
                                     <a href="https://print-css.rocks/" target="_blank" rel="noopener">https://print-css.rocks/</a>
@@ -503,26 +507,6 @@
                                 <li>        
                                     <b>CSS Generated Content for Paged Media Module</b><br />
                                     <a href="https://www.w3.org/TR/css-gcpm-3/" target="_blank" rel="noopener">https://www.w3.org/TR/css-gcpm-3/</a>
-                                </li>
-                                <li>
-                                    <b>A comparison of different html2pdf tools</b><br />
-                                    <a href="https://www.html2pdf.guru/" target="_blank" rel="noopener">https://www.html2pdf.guru/</a>
-                                </li>
-                                <li>
-                                    <b>PrintCSS Articles</b><br />
-                                    <a href="http://printcss.blog/" target="_blank" rel="noopener">http://printcss.blog/</a>
-                                </li>
-                                <li>
-                                    <b>PrintCSS Videos</b><br />
-                                    <a href="https://printcss.tube/" target="_blank" rel="noopener">https://printcss.tube/</a>
-                                </li>
-                                <li>
-                                    <b>PrintCSS Directory</b><br />
-                                    <a href="https://printcss.directory/" target="_blank" rel="noopener">https://printcss.directory/</a>
-                                </li>
-                                <li>
-                                    <b>PrintCSS Cards</b><br />
-                                    <a href="https://printcss.cards/" target="_blank" rel="noopener">https://printcss.cards/</a>
                                 </li>
                             </ul>',
             ));
