@@ -2,9 +2,9 @@
 
 * Download Link: https://wordpresstopdf.com/
 * Tags: PDF, HTML to PDF, PrintCSS, WeasyPrint, PagedJS, Vivliostyle, PrintCSS Cloud, RapidAPI
-* Requires at least: 5.7
-* Tested up to: 5.7
-* Version: 0.1.2
+* Requires at least: 5.9.3
+* Tested up to: 5.9.3
+* Version: 0.1.3
 
 Create PDFs from your Posts and Pages using the printcss.cloud for PDF generation.
 
@@ -19,6 +19,12 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Changelog
 
+- 0.1.3
+    - Avoid storing PDFs in the Media Section, instead directly downloading them
+	- Added an Option to show buttons in the page/post editors directly 
+	- Support ACF Group Fields 
+	- add methods magazineModifyHtml, magazineModifyCss, and magazineModifyJavascript
+	  The functions can be defined in the functions.php of your WordPress installation, you will get passed an string of the code which you can modify before the PDF gets rendered.
 - 0.1.2
     - Add Rest Endpoint (POST /wp-json/magazine/v1/pdf, Body {"ids": [265, 123], "theme": "Events"})
     - Add Support for Custom Post Types
