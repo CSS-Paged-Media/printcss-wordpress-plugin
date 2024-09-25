@@ -18,6 +18,9 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 6. Go to your Pages or Posts, select some of them and use the Bulk Action 'Render PDF.'
 7. The result PDF gets stored in the Media Library.
 
+## Usage
+https://printcss.net/articles/magazine-the-wordpress-plugin-for-printcss
+
 ## Changelog
 
 - 0.1.3
