@@ -10,12 +10,13 @@ Create PDFs from your Posts and Pages using the printcss.cloud for PDF generatio
 
 ## Installation and Setup
 
-1. Upload the complete directory into your wp-content/plugins folder
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Add your PrintCSS Cloud Key to the Settings Page under 'Settings' > 'Magazine.'
-4. Modify the sample code on the Settings Page
-5. Go to your Pages or Posts, select some of them and use the Bulk Action 'Render PDF.'
-6. The result PDF gets stored in the Media Library.
+1. Make sure your plugins folder is called "magazine" you will need to rename after the download fron GitHub.
+2. Upload the complete directory into your wp-content/plugins folder.
+3. Activate the plugin through the 'Plugins' menu in WordPress
+4. Add your PrintCSS Cloud Key to the Settings Page under 'Settings' > 'Magazine.'
+5. Modify the sample code on the Settings Page
+6. Go to your Pages or Posts, select some of them and use the Bulk Action 'Render PDF.'
+7. The result PDF gets stored in the Media Library.
 
 ## Changelog
 
